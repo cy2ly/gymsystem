@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92481cda-80a9-47ca-8e9a-f0b19f680722" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/model/UserModel.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
@@ -781,18 +782,19 @@
       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/PermissionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mappers/UserRoleMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/UserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/views/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/index.ftl" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gymsystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/gymsystem.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+>>>>>>> d0981d11b6fb92faa685001d22960117ee957cbd
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -812,17 +814,20 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+=======
+>>>>>>> d0981d11b6fb92faa685001d22960117ee957cbd
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../mybatis-dtd/mybatis-generator-config_1_0.dtd" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -831,7 +836,6 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\pojo\gymsystem\src\main\resources" />
       <recent name="E:\code\gymsystem\src\main\java\com\yjxxt\gymsystem" />
       <recent name="E:\code\gymsystem\src\main\resources" />
     </key>
@@ -842,17 +846,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="GymsystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="gymsystem" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.yjxxt.gymsystem.GymsystemApplication" />
@@ -871,7 +864,14 @@
       <updated>1638796648706</updated>
       <workItem from="1638796650652" duration="339000" />
       <workItem from="1638836102279" duration="799000" />
+<<<<<<< HEAD
       <workItem from="1638843315577" duration="6949000" />
+=======
+      <workItem from="1638844318271" duration="754000" />
+      <workItem from="1638845091537" duration="221000" />
+      <workItem from="1638845346164" duration="1293000" />
+      <workItem from="1638846749242" duration="536000" />
+>>>>>>> d0981d11b6fb92faa685001d22960117ee957cbd
     </task>
     <servers />
   </component>

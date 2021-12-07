@@ -1,0 +1,2750 @@
+Index: src/main/resources/public/css/index.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>html, body {width: 100%;height: 100%;overflow: hidden}\r\nbody {background: #009688;}\r\nbody:after {content:'';background-repeat:no-repeat;background-size:cover;-webkit-filter:blur(3px);-moz-filter:blur(3px);-o-filter:blur(3px);-ms-filter:blur(3px);filter:blur(3px);position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;}\r\n.layui-container {width: 100%;height: 100%;overflow: hidden}\r\n.admin-login-background {width:360px;height:300px;position:absolute;left:50%;top:40%;margin-left:-180px;margin-top:-100px;}\r\n.logo-title {text-align:center;letter-spacing:2px;padding:14px 0;}\r\n.logo-title h1 {color:#009688;font-size:25px;font-weight:bold;}\r\n.login-form {background-color:#fff;border:1px solid #fff;border-radius:3px;padding:14px 20px;box-shadow:0 0 8px #eeeeee;}\r\n.login-form .layui-form-item {position:relative;}\r\n.login-form .layui-form-item label {position:absolute;left:1px;top:1px;width:38px;line-height:36px;text-align:center;color:#d2d2d2;}\r\n.login-form .layui-form-item input {padding-left:36px;}\r\n.captcha {width:60%;display:inline-block;}\r\n.captcha-img {display:inline-block;width:34%;float:right;}\r\n.captcha-img img {height:34px;border:1px solid #e6e6e6;height:36px;width:100%;}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/public/css/index.css b/src/main/resources/public/css/index.css
+--- a/src/main/resources/public/css/index.css	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/src/main/resources/public/css/index.css	(date 1638851425664)
+@@ -1,5 +1,5 @@
+ html, body {width: 100%;height: 100%;overflow: hidden}
+-body {background: #009688;}
++body {background: url("public/images/loginbg.gif")}
+ body:after {content:'';background-repeat:no-repeat;background-size:cover;-webkit-filter:blur(3px);-moz-filter:blur(3px);-o-filter:blur(3px);-ms-filter:blur(3px);filter:blur(3px);position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;}
+ .layui-container {width: 100%;height: 100%;overflow: hidden}
+ .admin-login-background {width:360px;height:300px;position:absolute;left:50%;top:40%;margin-left:-180px;margin-top:-100px;}
+Index: src/main/java/com/yjxxt/gymsystem/controller/IndexController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yjxxt.gymsystem.controller;\r\n\r\nimport com.yjxxt.gymsystem.base.BaseController;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\n\r\npublic class IndexController extends BaseController {\r\n\r\n    @RequestMapping({\"/\",\"index\"})\r\n    public String index(){\r\n        return \"\";\r\n    }\r\n\r\n    @RequestMapping(\"main\")\r\n    public String main(){\r\n        return \"\";\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java b/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java
+--- a/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java	(date 1638849586942)
+@@ -1,17 +1,19 @@
+ package com.yjxxt.gymsystem.controller;
+ 
+ import com.yjxxt.gymsystem.base.BaseController;
++import org.springframework.stereotype.Controller;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ 
++@Controller
+ public class IndexController extends BaseController {
+ 
+     @RequestMapping({"/","index"})
+     public String index(){
+-        return "";
++        return "index";
+     }
+ 
+     @RequestMapping("main")
+     public String main(){
+-        return "";
++        return "main";
+     }
+ }
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n    <parent>\r\n        <groupId>org.springframework.boot</groupId>\r\n        <artifactId>spring-boot-starter-parent</artifactId>\r\n        <version>2.2.2.RELEASE</version>\r\n        <relativePath/> <!-- lookup parent from repository -->\r\n    </parent>\r\n    <groupId>com.yjxxt</groupId>\r\n    <artifactId>gymsystem</artifactId>\r\n    <version>0.0.1-SNAPSHOT</version>\r\n    <name>gymsystem</name>\r\n    <description>Demo project for Spring Boot</description>\r\n    <properties>\r\n        <java.version>11</java.version>\r\n    </properties>\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-freemarker</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-web</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.mybatis.spring.boot</groupId>\r\n            <artifactId>mybatis-spring-boot-starter</artifactId>\r\n            <version>2.2.0</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-devtools</artifactId>\r\n            <scope>runtime</scope>\r\n            <optional>true</optional>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>mysql</groupId>\r\n            <artifactId>mysql-connector-java</artifactId>\r\n            <scope>runtime</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-test</artifactId>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <!-- aop -->\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-aop</artifactId>\r\n        </dependency>\r\n        <!-- 分页插件 -->\r\n        <dependency>\r\n            <groupId>com.github.pagehelper</groupId>\r\n            <artifactId>pagehelper-spring-boot-starter</artifactId>\r\n            <version>1.2.13</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>com.alibaba</groupId>\r\n            <artifactId>druid</artifactId>\r\n            <version>1.2.2</version>\r\n        </dependency>\r\n        <!-- commons-lang3 -->\r\n        <dependency>\r\n            <groupId>org.apache.commons</groupId>\r\n            <artifactId>commons-lang3</artifactId>\r\n            <version>3.5</version>\r\n        </dependency>\r\n        <!-- json -->\r\n        <dependency>\r\n            <groupId>com.alibaba</groupId>\r\n            <artifactId>fastjson</artifactId>\r\n            <version>1.2.47</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.projectlombok</groupId>\r\n            <artifactId>lombok</artifactId>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.apache.maven.plugins</groupId>\r\n                <artifactId>maven-compiler-plugin</artifactId>\r\n                <version>3.8.1</version>\r\n                <configuration>\r\n                    <source>11</source>\r\n                    <target>11</target>\r\n                    <encoding>UTF-8</encoding>\r\n                </configuration>\r\n            </plugin>\r\n            <plugin>\r\n                <groupId>org.mybatis.generator</groupId>\r\n                <artifactId>mybatis-generator-maven-plugin</artifactId>\r\n                <version>1.3.2</version>\r\n                <configuration>\r\n                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>\r\n                    <verbose>true</verbose>\r\n                    <overwrite>true</overwrite>\r\n                </configuration>\r\n            </plugin>\r\n            <plugin>\r\n                <groupId>org.springframework.boot</groupId>\r\n                <artifactId>spring-boot-maven-plugin</artifactId>\r\n                <configuration>\r\n                    <fork>true</fork>\r\n                </configuration>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/pom.xml	(date 1638848784868)
+@@ -41,6 +41,7 @@
+             <groupId>mysql</groupId>
+             <artifactId>mysql-connector-java</artifactId>
+             <scope>runtime</scope>
++            <version>8.0.27</version>
+         </dependency>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+new file mode 100644
+--- /dev/null	(date 1638847958562)
++++ b/.idea/dataSources.local.xml	(date 1638847958562)
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="dataSourceStorageLocal" created-in="IU-211.7142.45">
++    <data-source name="gym@localhost" uuid="10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5">
++      <database-info product="MySQL" version="8.0.18" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.18" exact-driver-version="8.0">
++        <extra-name-characters>#@</extra-name-characters>
++        <identifier-quote-string>`</identifier-quote-string>
++      </database-info>
++      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
++      <secret-storage>master_key</secret-storage>
++      <user-name>root</user-name>
++      <schema-mapping>
++        <introspection-scope>
++          <node kind="schema" qname="@" />
++        </introspection-scope>
++      </schema-mapping>
++    </data-source>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml b/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_27.xml
+rename from .idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml
+rename to .idea/libraries/Maven__mysql_mysql_connector_java_8_0_27.xml
+--- a/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_27.xml	(date 1638848843745)
+@@ -1,13 +1,13 @@
+ <component name="libraryTable">
+-  <library name="Maven: mysql:mysql-connector-java:8.0.18">
++  <library name="Maven: mysql:mysql-connector-java:8.0.27">
+     <CLASSES>
+-      <root url="jar://$PROJECT_DIR$/../../apache-maven-3.6.2/myRep/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18.jar!/" />
++      <root url="jar://$PROJECT_DIR$/../../apache-maven-3.6.2/myRep/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27.jar!/" />
+     </CLASSES>
+     <JAVADOC>
+-      <root url="jar://$PROJECT_DIR$/../../apache-maven-3.6.2/myRep/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18-javadoc.jar!/" />
++      <root url="jar://$PROJECT_DIR$/../../apache-maven-3.6.2/myRep/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27-javadoc.jar!/" />
+     </JAVADOC>
+     <SOURCES>
+-      <root url="jar://$PROJECT_DIR$/../../apache-maven-3.6.2/myRep/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18-sources.jar!/" />
++      <root url="jar://$PROJECT_DIR$/../../apache-maven-3.6.2/myRep/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27-sources.jar!/" />
+     </SOURCES>
+   </library>
+ </component>
+\ No newline at end of file
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+new file mode 100644
+--- /dev/null	(date 1638847541561)
++++ b/.idea/dataSources.xml	(date 1638847541561)
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
++    <data-source source="LOCAL" name="gym@localhost" uuid="10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5">
++      <driver-ref>mysql.8</driver-ref>
++      <synchronize>true</synchronize>
++      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
++      <jdbc-url>jdbc:mysql://localhost:3306/gym</jdbc-url>
++      <working-dir>$ProjectFileDir$</working-dir>
++    </data-source>
++  </component>
++</project>
+\ No newline at end of file
+Index: src/main/java/com/yjxxt/gymsystem/interceptors/NoLoginInterceptor.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yjxxt.gymsystem.interceptors;\r\n\r\nimport org.springframework.web.servlet.handler.HandlerInterceptorAdapter;\r\n\r\nimport javax.annotation.Resource;\r\nimport javax.servlet.http.HttpServletRequest;\r\nimport javax.servlet.http.HttpServletResponse;\r\n\r\n/*\r\n* 非法访问拦截\r\n* */\r\npublic class NoLoginInterceptor extends HandlerInterceptorAdapter {\r\n/*\r\n    @Resource\r\n    private UserService userService;\r\n\r\n    @Override\r\n    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {\r\n        Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);\r\n        if (userId == null || userService.selectByPrimaryKey(userId) == null){\r\n            throw new NoLoginException(\"用户未登录\");\r\n        }\r\n        return true;\r\n    }*/\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/interceptors/NoLoginInterceptor.java b/src/main/java/com/yjxxt/gymsystem/interceptors/NoLoginInterceptor.java
+--- a/src/main/java/com/yjxxt/gymsystem/interceptors/NoLoginInterceptor.java	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/src/main/java/com/yjxxt/gymsystem/interceptors/NoLoginInterceptor.java	(date 1638848366194)
+@@ -1,5 +1,8 @@
+ package com.yjxxt.gymsystem.interceptors;
+ 
++import com.yjxxt.gymsystem.exceptions.NoLoginException;
++import com.yjxxt.gymsystem.service.UserService;
++import com.yjxxt.gymsystem.utils.LoginUserUtil;
+ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+ 
+ import javax.annotation.Resource;
+@@ -10,7 +13,6 @@
+ * 非法访问拦截
+ * */
+ public class NoLoginInterceptor extends HandlerInterceptorAdapter {
+-/*
+     @Resource
+     private UserService userService;
+ 
+@@ -21,6 +23,6 @@
+             throw new NoLoginException("用户未登录");
+         }
+         return true;
+-    }*/
++    }
+ 
+ }
+Index: src/main/resources/mappers/UserRoleMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/UserRoleMapper.xml b/src/main/resources/mappers/UserRoleMapper.xml
+new file mode 100644
+--- /dev/null	(date 1638847541574)
++++ b/src/main/resources/mappers/UserRoleMapper.xml	(date 1638847541574)
+@@ -0,0 +1,93 @@
++<?xml version="1.0" encoding="UTF-8" ?>
++<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
++<mapper namespace="com.yjxxt.gymsystem.mapper.UserRoleMapper" >
++  <resultMap id="BaseResultMap" type="com.yjxxt.gymsystem.bean.UserRole" >
++    <id column="id" property="id" jdbcType="INTEGER" />
++    <result column="user_id" property="userId" jdbcType="INTEGER" />
++    <result column="role_id" property="roleId" jdbcType="INTEGER" />
++    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
++    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
++  </resultMap>
++  <sql id="Base_Column_List" >
++    id, user_id, role_id, create_date, update_date
++  </sql>
++  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
++    select 
++    <include refid="Base_Column_List" />
++    from t_user_role
++    where id = #{id,jdbcType=INTEGER}
++  </select>
++  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
++    delete from t_user_role
++    where id = #{id,jdbcType=INTEGER}
++  </delete>
++  <insert id="insert" parameterType="com.yjxxt.gymsystem.bean.UserRole" >
++    insert into t_user_role (id, user_id, role_id, 
++      create_date, update_date)
++    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
++      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
++  </insert>
++  <insert id="insertSelective" parameterType="com.yjxxt.gymsystem.bean.UserRole" >
++    insert into t_user_role
++    <trim prefix="(" suffix=")" suffixOverrides="," >
++      <if test="id != null" >
++        id,
++      </if>
++      <if test="userId != null" >
++        user_id,
++      </if>
++      <if test="roleId != null" >
++        role_id,
++      </if>
++      <if test="createDate != null" >
++        create_date,
++      </if>
++      <if test="updateDate != null" >
++        update_date,
++      </if>
++    </trim>
++    <trim prefix="values (" suffix=")" suffixOverrides="," >
++      <if test="id != null" >
++        #{id,jdbcType=INTEGER},
++      </if>
++      <if test="userId != null" >
++        #{userId,jdbcType=INTEGER},
++      </if>
++      <if test="roleId != null" >
++        #{roleId,jdbcType=INTEGER},
++      </if>
++      <if test="createDate != null" >
++        #{createDate,jdbcType=TIMESTAMP},
++      </if>
++      <if test="updateDate != null" >
++        #{updateDate,jdbcType=TIMESTAMP},
++      </if>
++    </trim>
++  </insert>
++  <update id="updateByPrimaryKeySelective" parameterType="com.yjxxt.gymsystem.bean.UserRole" >
++    update t_user_role
++    <set >
++      <if test="userId != null" >
++        user_id = #{userId,jdbcType=INTEGER},
++      </if>
++      <if test="roleId != null" >
++        role_id = #{roleId,jdbcType=INTEGER},
++      </if>
++      <if test="createDate != null" >
++        create_date = #{createDate,jdbcType=TIMESTAMP},
++      </if>
++      <if test="updateDate != null" >
++        update_date = #{updateDate,jdbcType=TIMESTAMP},
++      </if>
++    </set>
++    where id = #{id,jdbcType=INTEGER}
++  </update>
++  <update id="updateByPrimaryKey" parameterType="com.yjxxt.gymsystem.bean.UserRole" >
++    update t_user_role
++    set user_id = #{userId,jdbcType=INTEGER},
++      role_id = #{roleId,jdbcType=INTEGER},
++      create_date = #{createDate,jdbcType=TIMESTAMP},
++      update_date = #{updateDate,jdbcType=TIMESTAMP}
++    where id = #{id,jdbcType=INTEGER}
++  </update>
++</mapper>
+\ No newline at end of file
+Index: src/main/resources/mappers/RoleMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/RoleMapper.xml b/src/main/resources/mappers/RoleMapper.xml
+new file mode 100644
+--- /dev/null	(date 1638847541572)
++++ b/src/main/resources/mappers/RoleMapper.xml	(date 1638847541572)
+@@ -0,0 +1,106 @@
++<?xml version="1.0" encoding="UTF-8" ?>
++<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
++<mapper namespace="com.yjxxt.gymsystem.mapper.RoleMapper" >
++  <resultMap id="BaseResultMap" type="com.yjxxt.gymsystem.bean.Role" >
++    <id column="id" property="id" jdbcType="INTEGER" />
++    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
++    <result column="role_remark" property="roleRemark" jdbcType="VARCHAR" />
++    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
++    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
++    <result column="is_valid" property="isValid" jdbcType="INTEGER" />
++  </resultMap>
++  <sql id="Base_Column_List" >
++    id, role_name, role_remark, create_date, update_date, is_valid
++  </sql>
++  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
++    select 
++    <include refid="Base_Column_List" />
++    from t_role
++    where id = #{id,jdbcType=INTEGER}
++  </select>
++  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
++    delete from t_role
++    where id = #{id,jdbcType=INTEGER}
++  </delete>
++  <insert id="insert" parameterType="com.yjxxt.gymsystem.bean.Role" >
++    insert into t_role (id, role_name, role_remark, 
++      create_date, update_date, is_valid
++      )
++    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleRemark,jdbcType=VARCHAR}, 
++      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{isValid,jdbcType=INTEGER}
++      )
++  </insert>
++  <insert id="insertSelective" parameterType="com.yjxxt.gymsystem.bean.Role" >
++    insert into t_role
++    <trim prefix="(" suffix=")" suffixOverrides="," >
++      <if test="id != null" >
++        id,
++      </if>
++      <if test="roleName != null" >
++        role_name,
++      </if>
++      <if test="roleRemark != null" >
++        role_remark,
++      </if>
++      <if test="createDate != null" >
++        create_date,
++      </if>
++      <if test="updateDate != null" >
++        update_date,
++      </if>
++      <if test="isValid != null" >
++        is_valid,
++      </if>
++    </trim>
++    <trim prefix="values (" suffix=")" suffixOverrides="," >
++      <if test="id != null" >
++        #{id,jdbcType=INTEGER},
++      </if>
++      <if test="roleName != null" >
++        #{roleName,jdbcType=VARCHAR},
++      </if>
++      <if test="roleRemark != null" >
++        #{roleRemark,jdbcType=VARCHAR},
++      </if>
++      <if test="createDate != null" >
++        #{createDate,jdbcType=TIMESTAMP},
++      </if>
++      <if test="updateDate != null" >
++        #{updateDate,jdbcType=TIMESTAMP},
++      </if>
++      <if test="isValid != null" >
++        #{isValid,jdbcType=INTEGER},
++      </if>
++    </trim>
++  </insert>
++  <update id="updateByPrimaryKeySelective" parameterType="com.yjxxt.gymsystem.bean.Role" >
++    update t_role
++    <set >
++      <if test="roleName != null" >
++        role_name = #{roleName,jdbcType=VARCHAR},
++      </if>
++      <if test="roleRemark != null" >
++        role_remark = #{roleRemark,jdbcType=VARCHAR},
++      </if>
++      <if test="createDate != null" >
++        create_date = #{createDate,jdbcType=TIMESTAMP},
++      </if>
++      <if test="updateDate != null" >
++        update_date = #{updateDate,jdbcType=TIMESTAMP},
++      </if>
++      <if test="isValid != null" >
++        is_valid = #{isValid,jdbcType=INTEGER},
++      </if>
++    </set>
++    where id = #{id,jdbcType=INTEGER}
++  </update>
++  <update id="updateByPrimaryKey" parameterType="com.yjxxt.gymsystem.bean.Role" >
++    update t_role
++    set role_name = #{roleName,jdbcType=VARCHAR},
++      role_remark = #{roleRemark,jdbcType=VARCHAR},
++      create_date = #{createDate,jdbcType=TIMESTAMP},
++      update_date = #{updateDate,jdbcType=TIMESTAMP},
++      is_valid = #{isValid,jdbcType=INTEGER}
++    where id = #{id,jdbcType=INTEGER}
++  </update>
++</mapper>
+\ No newline at end of file
+Index: src/main/java/com/yjxxt/gymsystem/GymsystemApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yjxxt.gymsystem;\r\n\r\nimport org.springframework.boot.SpringApplication;\r\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\r\n\r\n@SpringBootApplication\r\npublic class GymsystemApplication {\r\n\r\n    public static void main(String[] args) {\r\n        SpringApplication.run(GymsystemApplication.class, args);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/GymsystemApplication.java b/src/main/java/com/yjxxt/gymsystem/GymsystemApplication.java
+--- a/src/main/java/com/yjxxt/gymsystem/GymsystemApplication.java	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/src/main/java/com/yjxxt/gymsystem/GymsystemApplication.java	(date 1638848471843)
+@@ -1,9 +1,11 @@
+ package com.yjxxt.gymsystem;
+ 
++import org.mybatis.spring.annotation.MapperScan;
+ import org.springframework.boot.SpringApplication;
+ import org.springframework.boot.autoconfigure.SpringBootApplication;
+ 
+ @SpringBootApplication
++@MapperScan("com.yjxxt.gymsystem.mapper")
+ public class GymsystemApplication {
+ 
+     public static void main(String[] args) {
+Index: src/main/resources/mappers/PermissionMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/PermissionMapper.xml b/src/main/resources/mappers/PermissionMapper.xml
+new file mode 100644
+--- /dev/null	(date 1638847541572)
++++ b/src/main/resources/mappers/PermissionMapper.xml	(date 1638847541572)
+@@ -0,0 +1,106 @@
++<?xml version="1.0" encoding="UTF-8" ?>
++<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
++<mapper namespace="com.yjxxt.gymsystem.mapper.PermissionMapper" >
++  <resultMap id="BaseResultMap" type="com.yjxxt.gymsystem.bean.Permission" >
++    <id column="id" property="id" jdbcType="INTEGER" />
++    <result column="role_id" property="roleId" jdbcType="INTEGER" />
++    <result column="module_id" property="moduleId" jdbcType="INTEGER" />
++    <result column="acl_value" property="aclValue" jdbcType="VARCHAR" />
++    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
++    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
++  </resultMap>
++  <sql id="Base_Column_List" >
++    id, role_id, module_id, acl_value, create_date, update_date
++  </sql>
++  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
++    select 
++    <include refid="Base_Column_List" />
++    from t_permission
++    where id = #{id,jdbcType=INTEGER}
++  </select>
++  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
++    delete from t_permission
++    where id = #{id,jdbcType=INTEGER}
++  </delete>
++  <insert id="insert" parameterType="com.yjxxt.gymsystem.bean.Permission" >
++    insert into t_permission (id, role_id, module_id, 
++      acl_value, create_date, update_date
++      )
++    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{moduleId,jdbcType=INTEGER}, 
++      #{aclValue,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
++      )
++  </insert>
++  <insert id="insertSelective" parameterType="com.yjxxt.gymsystem.bean.Permission" >
++    insert into t_permission
++    <trim prefix="(" suffix=")" suffixOverrides="," >
++      <if test="id != null" >
++        id,
++      </if>
++      <if test="roleId != null" >
++        role_id,
++      </if>
++      <if test="moduleId != null" >
++        module_id,
++      </if>
++      <if test="aclValue != null" >
++        acl_value,
++      </if>
++      <if test="createDate != null" >
++        create_date,
++      </if>
++      <if test="updateDate != null" >
++        update_date,
++      </if>
++    </trim>
++    <trim prefix="values (" suffix=")" suffixOverrides="," >
++      <if test="id != null" >
++        #{id,jdbcType=INTEGER},
++      </if>
++      <if test="roleId != null" >
++        #{roleId,jdbcType=INTEGER},
++      </if>
++      <if test="moduleId != null" >
++        #{moduleId,jdbcType=INTEGER},
++      </if>
++      <if test="aclValue != null" >
++        #{aclValue,jdbcType=VARCHAR},
++      </if>
++      <if test="createDate != null" >
++        #{createDate,jdbcType=TIMESTAMP},
++      </if>
++      <if test="updateDate != null" >
++        #{updateDate,jdbcType=TIMESTAMP},
++      </if>
++    </trim>
++  </insert>
++  <update id="updateByPrimaryKeySelective" parameterType="com.yjxxt.gymsystem.bean.Permission" >
++    update t_permission
++    <set >
++      <if test="roleId != null" >
++        role_id = #{roleId,jdbcType=INTEGER},
++      </if>
++      <if test="moduleId != null" >
++        module_id = #{moduleId,jdbcType=INTEGER},
++      </if>
++      <if test="aclValue != null" >
++        acl_value = #{aclValue,jdbcType=VARCHAR},
++      </if>
++      <if test="createDate != null" >
++        create_date = #{createDate,jdbcType=TIMESTAMP},
++      </if>
++      <if test="updateDate != null" >
++        update_date = #{updateDate,jdbcType=TIMESTAMP},
++      </if>
++    </set>
++    where id = #{id,jdbcType=INTEGER}
++  </update>
++  <update id="updateByPrimaryKey" parameterType="com.yjxxt.gymsystem.bean.Permission" >
++    update t_permission
++    set role_id = #{roleId,jdbcType=INTEGER},
++      module_id = #{moduleId,jdbcType=INTEGER},
++      acl_value = #{aclValue,jdbcType=VARCHAR},
++      create_date = #{createDate,jdbcType=TIMESTAMP},
++      update_date = #{updateDate,jdbcType=TIMESTAMP}
++    where id = #{id,jdbcType=INTEGER}
++  </update>
++</mapper>
+\ No newline at end of file
+Index: .idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/sys.zb4BAA.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/sys.zb4BAA.meta b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/sys.zb4BAA.meta
+new file mode 100644
+--- /dev/null	(date 1638847541564)
++++ b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/sys.zb4BAA.meta	(date 1638847541564)
+@@ -0,0 +1,2 @@
++#n:sys
++!<md> [null, 0, null, null, -2147483648, -2147483648]
+Index: src/main/resources/generatorConfig.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/generatorConfig.xml b/src/main/resources/generatorConfig.xml
+new file mode 100644
+--- /dev/null	(date 1638848829295)
++++ b/src/main/resources/generatorConfig.xml	(date 1638848829295)
+@@ -0,0 +1,73 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE generatorConfiguration
++        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
++        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
++
++<generatorConfiguration>
++
++    <!-- 数据库驱动路径：在左侧project边栏的External Libraries中找到mysql的驱动，右键选择copy path -->
++    <classPathEntry
++            location="E:\apache-maven-3.6.2\myRep\mysql\mysql-connector-java\8.0.27\mysql-connector-java-8.0.27.jar"/>
++
++    <!-- context 是逆向工程的主要配置信息，id：起个名字，targetRuntime：设置生成的文件适用于哪个mybatis版本 -->
++    <context id="DB2Tables" targetRuntime="MyBatis3">
++
++        <!--optional,指在创建class时，对注释进行控制-->
++        <commentGenerator>
++            <!-- 是否去除日期那行注释 -->
++            <property name="suppressDate" value="true"/>
++            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
++            <property name="suppressAllComments" value="true"/>
++        </commentGenerator>
++
++        <!-- 数据库链接地址账号密码 -->
++        <jdbcConnection
++                driverClass="com.mysql.cj.jdbc.Driver"
++                connectionURL="jdbc:mysql://127.0.0.1:3306/gym?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false"
++                userId="root"
++                password="wushihua">
++            <property name="nullCatalogMeansCurrent" value="true"/>
++        </jdbcConnection>
++
++        <!--
++             java类型处理器
++                用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
++                注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和NUMERIC数据类型；
++                true：使用 BigDecimal对应DECIMAL和NUMERIC数据类型
++                false：默认，把JDBC DECIMAL和NUMERIC类型解析为Integer
++        -->
++        <javaTypeResolver>
++            <property name="forceBigDecimals" value="false"/>
++        </javaTypeResolver>
++
++
++
++        <!-- 生成Model类存放位置 -->
++        <javaModelGenerator targetPackage="com.yjxxt.gymsystem.bean" targetProject="src/main/java">
++            <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，生成的类放在这个package下，默认为false -->
++            <property name="enableSubPackages" value="true"/>
++            <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
++            <property name="trimStrings" value="true"/>
++        </javaModelGenerator>
++
++
++        <!--生成映射文件存放位置-->
++        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
++            <property name="enableSubPackages" value="true"/>
++        </sqlMapGenerator>
++
++
++        <!--生成Dao类存放位置-->
++        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yjxxt.gymsystem.mapper" targetProject="src/main/java">
++            <property name="enableSubPackages" value="true"/>
++        </javaClientGenerator>
++
++
++        <!-- 数据库的表名与对应的实体类的名称，tableName是数据库中的表名，domainObjectName是生成的JAVA模型名 -->
++        <table tableName="t_user" domainObjectName="User"
++               enableCountByExample="false" enableUpdateByExample="false"
++               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
++        </table>
++
++    </context>
++</generatorConfiguration>
+\ No newline at end of file
+Index: .idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/mysql.osA4Bg.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/mysql.osA4Bg.meta b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/mysql.osA4Bg.meta
+new file mode 100644
+--- /dev/null	(date 1638847541564)
++++ b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/mysql.osA4Bg.meta	(date 1638847541564)
+@@ -0,0 +1,2 @@
++#n:mysql
++!<md> [null, 0, null, null, -2147483648, -2147483648]
+Index: .idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/performance_schema.kIw0nw.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/performance_schema.kIw0nw.meta b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/performance_schema.kIw0nw.meta
+new file mode 100644
+--- /dev/null	(date 1638847541564)
++++ b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/performance_schema.kIw0nw.meta	(date 1638847541564)
+@@ -0,0 +1,2 @@
++#n:performance_schema
++!<md> [null, 0, null, null, -2147483648, -2147483648]
+Index: .idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/information_schema.FNRwLQ.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/information_schema.FNRwLQ.meta b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/information_schema.FNRwLQ.meta
+new file mode 100644
+--- /dev/null	(date 1638847541563)
++++ b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/information_schema.FNRwLQ.meta	(date 1638847541563)
+@@ -0,0 +1,2 @@
++#n:information_schema
++!<md> [null, 0, null, null, -2147483648, -2147483648]
+Index: .idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5.xml b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5.xml
+new file mode 100644
+--- /dev/null	(date 1638848949214)
++++ b/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5.xml	(date 1638848949214)
+@@ -0,0 +1,1472 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<dataSource name="gym@localhost">
++  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.21">
++    <root id="1">
++      <ServerVersion>8.0.18</ServerVersion>
++      <Grants>|root||root|localhost|ALTER|G
++|root||root|localhost|ALTER ROUTINE|G
++|root||root|localhost|APPLICATION_PASSWORD_ADMIN|G
++|root||root|localhost|AUDIT_ADMIN|G
++|root||mysql.session|localhost|BACKUP_ADMIN|G
++|root||root|localhost|BACKUP_ADMIN|G
++|root||root|localhost|BINLOG_ADMIN|G
++|root||root|localhost|BINLOG_ENCRYPTION_ADMIN|G
++|root||mysql.session|localhost|CLONE_ADMIN|G
++|root||root|localhost|CLONE_ADMIN|G
++|root||mysql.session|localhost|CONNECTION_ADMIN|G
++|root||root|localhost|CONNECTION_ADMIN|G
++|root||root|localhost|CREATE|G
++|root||root|localhost|CREATE ROLE|G
++|root||root|localhost|CREATE ROUTINE|G
++|root||root|localhost|CREATE TABLESPACE|G
++|root||root|localhost|CREATE TEMPORARY TABLES|G
++|root||root|localhost|CREATE USER|G
++|root||root|localhost|CREATE VIEW|G
++|root||root|localhost|DELETE|G
++|root||root|localhost|DROP|G
++|root||root|localhost|DROP ROLE|G
++|root||root|localhost|ENCRYPTION_KEY_ADMIN|G
++|root||root|localhost|EVENT|G
++|root||root|localhost|EXECUTE|G
++|root||root|localhost|FILE|G
++|root||root|localhost|GROUP_REPLICATION_ADMIN|G
++|root||root|localhost|INDEX|G
++|root||root|localhost|INNODB_REDO_LOG_ARCHIVE|G
++|root||root|localhost|INSERT|G
++|root||root|localhost|LOCK TABLES|G
++|root||mysql.session|localhost|PERSIST_RO_VARIABLES_ADMIN|G
++|root||root|localhost|PERSIST_RO_VARIABLES_ADMIN|G
++|root||root|localhost|PROCESS|G
++|root||root|localhost|REFERENCES|G
++|root||root|localhost|RELOAD|G
++|root||root|localhost|REPLICATION CLIENT|G
++|root||root|localhost|REPLICATION SLAVE|G
++|root||root|localhost|REPLICATION_APPLIER|G
++|root||root|localhost|REPLICATION_SLAVE_ADMIN|G
++|root||root|localhost|RESOURCE_GROUP_ADMIN|G
++|root||root|localhost|RESOURCE_GROUP_USER|G
++|root||root|localhost|ROLE_ADMIN|G
++|root||mysql.infoschema|localhost|SELECT|G
++|root||root|localhost|SELECT|G
++|root||root|localhost|SERVICE_CONNECTION_ADMIN|G
++|root||mysql.session|localhost|SESSION_VARIABLES_ADMIN|G
++|root||root|localhost|SESSION_VARIABLES_ADMIN|G
++|root||root|localhost|SET_USER_ID|G
++|root||root|localhost|SHOW DATABASES|G
++|root||root|localhost|SHOW VIEW|G
++|root||mysql.session|localhost|SHUTDOWN|G
++|root||root|localhost|SHUTDOWN|G
++|root||mysql.session|localhost|SUPER|G
++|root||root|localhost|SUPER|G
++|root||mysql.session|localhost|SYSTEM_USER|G
++|root||root|localhost|SYSTEM_USER|G
++|root||mysql.session|localhost|SYSTEM_VARIABLES_ADMIN|G
++|root||root|localhost|SYSTEM_VARIABLES_ADMIN|G
++|root||root|localhost|TABLE_ENCRYPTION_ADMIN|G
++|root||root|localhost|TRIGGER|G
++|root||root|localhost|UPDATE|G
++|root||root|localhost|XA_RECOVER_ADMIN|G
++|root||root|localhost|grant option|G
++performance_schema|schema||mysql.session|localhost|SELECT|G
++sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
++      <DefaultEngine>InnoDB</DefaultEngine>
++      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
++      <DefaultCasing>lower/lower</DefaultCasing>
++    </root>
++    <schema id="2" parent="1" name="crm">
++      <Collation>utf8mb4_0900_ai_ci</Collation>
++    </schema>
++    <schema id="3" parent="1" name="gym">
++      <Current>1</Current>
++      <Collation>utf8mb4_0900_ai_ci</Collation>
++    </schema>
++    <schema id="4" parent="1" name="information_schema">
++      <Collation>utf8_general_ci</Collation>
++    </schema>
++    <schema id="5" parent="1" name="league_managesystem">
++      <Collation>utf8mb4_0900_ai_ci</Collation>
++    </schema>
++    <schema id="6" parent="1" name="mysql">
++      <Collation>utf8mb4_0900_ai_ci</Collation>
++    </schema>
++    <schema id="7" parent="1" name="performance_schema">
++      <Collation>utf8mb4_0900_ai_ci</Collation>
++    </schema>
++    <schema id="8" parent="1" name="pm">
++      <Collation>utf8mb4_0900_ai_ci</Collation>
++    </schema>
++    <schema id="9" parent="1" name="sys">
++      <Collation>utf8mb4_0900_ai_ci</Collation>
++    </schema>
++    <collation id="10" parent="1" name="armscii8_bin">
++      <Charset>armscii8</Charset>
++    </collation>
++    <collation id="11" parent="1" name="armscii8_general_ci">
++      <Charset>armscii8</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="12" parent="1" name="ascii_bin">
++      <Charset>ascii</Charset>
++    </collation>
++    <collation id="13" parent="1" name="ascii_general_ci">
++      <Charset>ascii</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="14" parent="1" name="big5_bin">
++      <Charset>big5</Charset>
++    </collation>
++    <collation id="15" parent="1" name="big5_chinese_ci">
++      <Charset>big5</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="16" parent="1" name="binary">
++      <Charset>binary</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="17" parent="1" name="cp1250_bin">
++      <Charset>cp1250</Charset>
++    </collation>
++    <collation id="18" parent="1" name="cp1250_croatian_ci">
++      <Charset>cp1250</Charset>
++    </collation>
++    <collation id="19" parent="1" name="cp1250_czech_cs">
++      <Charset>cp1250</Charset>
++    </collation>
++    <collation id="20" parent="1" name="cp1250_general_ci">
++      <Charset>cp1250</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="21" parent="1" name="cp1250_polish_ci">
++      <Charset>cp1250</Charset>
++    </collation>
++    <collation id="22" parent="1" name="cp1251_bin">
++      <Charset>cp1251</Charset>
++    </collation>
++    <collation id="23" parent="1" name="cp1251_bulgarian_ci">
++      <Charset>cp1251</Charset>
++    </collation>
++    <collation id="24" parent="1" name="cp1251_general_ci">
++      <Charset>cp1251</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="25" parent="1" name="cp1251_general_cs">
++      <Charset>cp1251</Charset>
++    </collation>
++    <collation id="26" parent="1" name="cp1251_ukrainian_ci">
++      <Charset>cp1251</Charset>
++    </collation>
++    <collation id="27" parent="1" name="cp1256_bin">
++      <Charset>cp1256</Charset>
++    </collation>
++    <collation id="28" parent="1" name="cp1256_general_ci">
++      <Charset>cp1256</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="29" parent="1" name="cp1257_bin">
++      <Charset>cp1257</Charset>
++    </collation>
++    <collation id="30" parent="1" name="cp1257_general_ci">
++      <Charset>cp1257</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="31" parent="1" name="cp1257_lithuanian_ci">
++      <Charset>cp1257</Charset>
++    </collation>
++    <collation id="32" parent="1" name="cp850_bin">
++      <Charset>cp850</Charset>
++    </collation>
++    <collation id="33" parent="1" name="cp850_general_ci">
++      <Charset>cp850</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="34" parent="1" name="cp852_bin">
++      <Charset>cp852</Charset>
++    </collation>
++    <collation id="35" parent="1" name="cp852_general_ci">
++      <Charset>cp852</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="36" parent="1" name="cp866_bin">
++      <Charset>cp866</Charset>
++    </collation>
++    <collation id="37" parent="1" name="cp866_general_ci">
++      <Charset>cp866</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="38" parent="1" name="cp932_bin">
++      <Charset>cp932</Charset>
++    </collation>
++    <collation id="39" parent="1" name="cp932_japanese_ci">
++      <Charset>cp932</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="40" parent="1" name="dec8_bin">
++      <Charset>dec8</Charset>
++    </collation>
++    <collation id="41" parent="1" name="dec8_swedish_ci">
++      <Charset>dec8</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="42" parent="1" name="eucjpms_bin">
++      <Charset>eucjpms</Charset>
++    </collation>
++    <collation id="43" parent="1" name="eucjpms_japanese_ci">
++      <Charset>eucjpms</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="44" parent="1" name="euckr_bin">
++      <Charset>euckr</Charset>
++    </collation>
++    <collation id="45" parent="1" name="euckr_korean_ci">
++      <Charset>euckr</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="46" parent="1" name="gb18030_bin">
++      <Charset>gb18030</Charset>
++    </collation>
++    <collation id="47" parent="1" name="gb18030_chinese_ci">
++      <Charset>gb18030</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="48" parent="1" name="gb18030_unicode_520_ci">
++      <Charset>gb18030</Charset>
++    </collation>
++    <collation id="49" parent="1" name="gb2312_bin">
++      <Charset>gb2312</Charset>
++    </collation>
++    <collation id="50" parent="1" name="gb2312_chinese_ci">
++      <Charset>gb2312</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="51" parent="1" name="gbk_bin">
++      <Charset>gbk</Charset>
++    </collation>
++    <collation id="52" parent="1" name="gbk_chinese_ci">
++      <Charset>gbk</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="53" parent="1" name="geostd8_bin">
++      <Charset>geostd8</Charset>
++    </collation>
++    <collation id="54" parent="1" name="geostd8_general_ci">
++      <Charset>geostd8</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="55" parent="1" name="greek_bin">
++      <Charset>greek</Charset>
++    </collation>
++    <collation id="56" parent="1" name="greek_general_ci">
++      <Charset>greek</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="57" parent="1" name="hebrew_bin">
++      <Charset>hebrew</Charset>
++    </collation>
++    <collation id="58" parent="1" name="hebrew_general_ci">
++      <Charset>hebrew</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="59" parent="1" name="hp8_bin">
++      <Charset>hp8</Charset>
++    </collation>
++    <collation id="60" parent="1" name="hp8_english_ci">
++      <Charset>hp8</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="61" parent="1" name="keybcs2_bin">
++      <Charset>keybcs2</Charset>
++    </collation>
++    <collation id="62" parent="1" name="keybcs2_general_ci">
++      <Charset>keybcs2</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="63" parent="1" name="koi8r_bin">
++      <Charset>koi8r</Charset>
++    </collation>
++    <collation id="64" parent="1" name="koi8r_general_ci">
++      <Charset>koi8r</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="65" parent="1" name="koi8u_bin">
++      <Charset>koi8u</Charset>
++    </collation>
++    <collation id="66" parent="1" name="koi8u_general_ci">
++      <Charset>koi8u</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="67" parent="1" name="latin1_bin">
++      <Charset>latin1</Charset>
++    </collation>
++    <collation id="68" parent="1" name="latin1_danish_ci">
++      <Charset>latin1</Charset>
++    </collation>
++    <collation id="69" parent="1" name="latin1_general_ci">
++      <Charset>latin1</Charset>
++    </collation>
++    <collation id="70" parent="1" name="latin1_general_cs">
++      <Charset>latin1</Charset>
++    </collation>
++    <collation id="71" parent="1" name="latin1_german1_ci">
++      <Charset>latin1</Charset>
++    </collation>
++    <collation id="72" parent="1" name="latin1_german2_ci">
++      <Charset>latin1</Charset>
++    </collation>
++    <collation id="73" parent="1" name="latin1_spanish_ci">
++      <Charset>latin1</Charset>
++    </collation>
++    <collation id="74" parent="1" name="latin1_swedish_ci">
++      <Charset>latin1</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="75" parent="1" name="latin2_bin">
++      <Charset>latin2</Charset>
++    </collation>
++    <collation id="76" parent="1" name="latin2_croatian_ci">
++      <Charset>latin2</Charset>
++    </collation>
++    <collation id="77" parent="1" name="latin2_czech_cs">
++      <Charset>latin2</Charset>
++    </collation>
++    <collation id="78" parent="1" name="latin2_general_ci">
++      <Charset>latin2</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="79" parent="1" name="latin2_hungarian_ci">
++      <Charset>latin2</Charset>
++    </collation>
++    <collation id="80" parent="1" name="latin5_bin">
++      <Charset>latin5</Charset>
++    </collation>
++    <collation id="81" parent="1" name="latin5_turkish_ci">
++      <Charset>latin5</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="82" parent="1" name="latin7_bin">
++      <Charset>latin7</Charset>
++    </collation>
++    <collation id="83" parent="1" name="latin7_estonian_cs">
++      <Charset>latin7</Charset>
++    </collation>
++    <collation id="84" parent="1" name="latin7_general_ci">
++      <Charset>latin7</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="85" parent="1" name="latin7_general_cs">
++      <Charset>latin7</Charset>
++    </collation>
++    <collation id="86" parent="1" name="macce_bin">
++      <Charset>macce</Charset>
++    </collation>
++    <collation id="87" parent="1" name="macce_general_ci">
++      <Charset>macce</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="88" parent="1" name="macroman_bin">
++      <Charset>macroman</Charset>
++    </collation>
++    <collation id="89" parent="1" name="macroman_general_ci">
++      <Charset>macroman</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="90" parent="1" name="sjis_bin">
++      <Charset>sjis</Charset>
++    </collation>
++    <collation id="91" parent="1" name="sjis_japanese_ci">
++      <Charset>sjis</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="92" parent="1" name="swe7_bin">
++      <Charset>swe7</Charset>
++    </collation>
++    <collation id="93" parent="1" name="swe7_swedish_ci">
++      <Charset>swe7</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="94" parent="1" name="tis620_bin">
++      <Charset>tis620</Charset>
++    </collation>
++    <collation id="95" parent="1" name="tis620_thai_ci">
++      <Charset>tis620</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="96" parent="1" name="ucs2_bin">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="97" parent="1" name="ucs2_croatian_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="98" parent="1" name="ucs2_czech_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="99" parent="1" name="ucs2_danish_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="100" parent="1" name="ucs2_esperanto_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="101" parent="1" name="ucs2_estonian_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="102" parent="1" name="ucs2_general_ci">
++      <Charset>ucs2</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="103" parent="1" name="ucs2_general_mysql500_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="104" parent="1" name="ucs2_german2_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="105" parent="1" name="ucs2_hungarian_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="106" parent="1" name="ucs2_icelandic_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="107" parent="1" name="ucs2_latvian_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="108" parent="1" name="ucs2_lithuanian_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="109" parent="1" name="ucs2_persian_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="110" parent="1" name="ucs2_polish_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="111" parent="1" name="ucs2_roman_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="112" parent="1" name="ucs2_romanian_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="113" parent="1" name="ucs2_sinhala_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="114" parent="1" name="ucs2_slovak_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="115" parent="1" name="ucs2_slovenian_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="116" parent="1" name="ucs2_spanish2_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="117" parent="1" name="ucs2_spanish_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="118" parent="1" name="ucs2_swedish_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="119" parent="1" name="ucs2_turkish_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="120" parent="1" name="ucs2_unicode_520_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="121" parent="1" name="ucs2_unicode_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="122" parent="1" name="ucs2_vietnamese_ci">
++      <Charset>ucs2</Charset>
++    </collation>
++    <collation id="123" parent="1" name="ujis_bin">
++      <Charset>ujis</Charset>
++    </collation>
++    <collation id="124" parent="1" name="ujis_japanese_ci">
++      <Charset>ujis</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="125" parent="1" name="utf16_bin">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="126" parent="1" name="utf16_croatian_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="127" parent="1" name="utf16_czech_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="128" parent="1" name="utf16_danish_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="129" parent="1" name="utf16_esperanto_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="130" parent="1" name="utf16_estonian_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="131" parent="1" name="utf16_general_ci">
++      <Charset>utf16</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="132" parent="1" name="utf16_german2_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="133" parent="1" name="utf16_hungarian_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="134" parent="1" name="utf16_icelandic_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="135" parent="1" name="utf16_latvian_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="136" parent="1" name="utf16_lithuanian_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="137" parent="1" name="utf16_persian_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="138" parent="1" name="utf16_polish_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="139" parent="1" name="utf16_roman_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="140" parent="1" name="utf16_romanian_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="141" parent="1" name="utf16_sinhala_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="142" parent="1" name="utf16_slovak_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="143" parent="1" name="utf16_slovenian_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="144" parent="1" name="utf16_spanish2_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="145" parent="1" name="utf16_spanish_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="146" parent="1" name="utf16_swedish_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="147" parent="1" name="utf16_turkish_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="148" parent="1" name="utf16_unicode_520_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="149" parent="1" name="utf16_unicode_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="150" parent="1" name="utf16_vietnamese_ci">
++      <Charset>utf16</Charset>
++    </collation>
++    <collation id="151" parent="1" name="utf16le_bin">
++      <Charset>utf16le</Charset>
++    </collation>
++    <collation id="152" parent="1" name="utf16le_general_ci">
++      <Charset>utf16le</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="153" parent="1" name="utf32_bin">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="154" parent="1" name="utf32_croatian_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="155" parent="1" name="utf32_czech_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="156" parent="1" name="utf32_danish_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="157" parent="1" name="utf32_esperanto_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="158" parent="1" name="utf32_estonian_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="159" parent="1" name="utf32_general_ci">
++      <Charset>utf32</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="160" parent="1" name="utf32_german2_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="161" parent="1" name="utf32_hungarian_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="162" parent="1" name="utf32_icelandic_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="163" parent="1" name="utf32_latvian_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="164" parent="1" name="utf32_lithuanian_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="165" parent="1" name="utf32_persian_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="166" parent="1" name="utf32_polish_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="167" parent="1" name="utf32_roman_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="168" parent="1" name="utf32_romanian_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="169" parent="1" name="utf32_sinhala_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="170" parent="1" name="utf32_slovak_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="171" parent="1" name="utf32_slovenian_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="172" parent="1" name="utf32_spanish2_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="173" parent="1" name="utf32_spanish_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="174" parent="1" name="utf32_swedish_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="175" parent="1" name="utf32_turkish_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="176" parent="1" name="utf32_unicode_520_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="177" parent="1" name="utf32_unicode_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="178" parent="1" name="utf32_vietnamese_ci">
++      <Charset>utf32</Charset>
++    </collation>
++    <collation id="179" parent="1" name="utf8_bin">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="180" parent="1" name="utf8_croatian_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="181" parent="1" name="utf8_czech_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="182" parent="1" name="utf8_danish_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="183" parent="1" name="utf8_esperanto_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="184" parent="1" name="utf8_estonian_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="185" parent="1" name="utf8_general_ci">
++      <Charset>utf8</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="186" parent="1" name="utf8_general_mysql500_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="187" parent="1" name="utf8_german2_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="188" parent="1" name="utf8_hungarian_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="189" parent="1" name="utf8_icelandic_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="190" parent="1" name="utf8_latvian_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="191" parent="1" name="utf8_lithuanian_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="192" parent="1" name="utf8_persian_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="193" parent="1" name="utf8_polish_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="194" parent="1" name="utf8_roman_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="195" parent="1" name="utf8_romanian_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="196" parent="1" name="utf8_sinhala_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="197" parent="1" name="utf8_slovak_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="198" parent="1" name="utf8_slovenian_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="199" parent="1" name="utf8_spanish2_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="200" parent="1" name="utf8_spanish_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="201" parent="1" name="utf8_swedish_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="202" parent="1" name="utf8_tolower_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="203" parent="1" name="utf8_turkish_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="204" parent="1" name="utf8_unicode_520_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="205" parent="1" name="utf8_unicode_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="206" parent="1" name="utf8_vietnamese_ci">
++      <Charset>utf8</Charset>
++    </collation>
++    <collation id="207" parent="1" name="utf8mb4_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++      <DefaultForCharset>1</DefaultForCharset>
++    </collation>
++    <collation id="208" parent="1" name="utf8mb4_0900_as_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="209" parent="1" name="utf8mb4_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="210" parent="1" name="utf8mb4_0900_bin">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="211" parent="1" name="utf8mb4_bin">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="212" parent="1" name="utf8mb4_croatian_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="213" parent="1" name="utf8mb4_cs_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="214" parent="1" name="utf8mb4_cs_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="215" parent="1" name="utf8mb4_czech_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="216" parent="1" name="utf8mb4_da_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="217" parent="1" name="utf8mb4_da_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="218" parent="1" name="utf8mb4_danish_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="219" parent="1" name="utf8mb4_de_pb_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="220" parent="1" name="utf8mb4_de_pb_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="221" parent="1" name="utf8mb4_eo_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="222" parent="1" name="utf8mb4_eo_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="223" parent="1" name="utf8mb4_es_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="224" parent="1" name="utf8mb4_es_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="225" parent="1" name="utf8mb4_es_trad_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="226" parent="1" name="utf8mb4_es_trad_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="227" parent="1" name="utf8mb4_esperanto_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="228" parent="1" name="utf8mb4_estonian_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="229" parent="1" name="utf8mb4_et_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="230" parent="1" name="utf8mb4_et_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="231" parent="1" name="utf8mb4_general_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="232" parent="1" name="utf8mb4_german2_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="233" parent="1" name="utf8mb4_hr_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="234" parent="1" name="utf8mb4_hr_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="235" parent="1" name="utf8mb4_hu_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="236" parent="1" name="utf8mb4_hu_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="237" parent="1" name="utf8mb4_hungarian_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="238" parent="1" name="utf8mb4_icelandic_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="239" parent="1" name="utf8mb4_is_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="240" parent="1" name="utf8mb4_is_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="241" parent="1" name="utf8mb4_ja_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="242" parent="1" name="utf8mb4_ja_0900_as_cs_ks">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="243" parent="1" name="utf8mb4_la_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="244" parent="1" name="utf8mb4_la_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="245" parent="1" name="utf8mb4_latvian_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="246" parent="1" name="utf8mb4_lithuanian_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="247" parent="1" name="utf8mb4_lt_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="248" parent="1" name="utf8mb4_lt_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="249" parent="1" name="utf8mb4_lv_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="250" parent="1" name="utf8mb4_lv_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="251" parent="1" name="utf8mb4_persian_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="252" parent="1" name="utf8mb4_pl_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="253" parent="1" name="utf8mb4_pl_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="254" parent="1" name="utf8mb4_polish_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="255" parent="1" name="utf8mb4_ro_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="256" parent="1" name="utf8mb4_ro_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="257" parent="1" name="utf8mb4_roman_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="258" parent="1" name="utf8mb4_romanian_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="259" parent="1" name="utf8mb4_ru_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="260" parent="1" name="utf8mb4_ru_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="261" parent="1" name="utf8mb4_sinhala_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="262" parent="1" name="utf8mb4_sk_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="263" parent="1" name="utf8mb4_sk_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="264" parent="1" name="utf8mb4_sl_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="265" parent="1" name="utf8mb4_sl_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="266" parent="1" name="utf8mb4_slovak_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="267" parent="1" name="utf8mb4_slovenian_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="268" parent="1" name="utf8mb4_spanish2_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="269" parent="1" name="utf8mb4_spanish_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="270" parent="1" name="utf8mb4_sv_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="271" parent="1" name="utf8mb4_sv_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="272" parent="1" name="utf8mb4_swedish_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="273" parent="1" name="utf8mb4_tr_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="274" parent="1" name="utf8mb4_tr_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="275" parent="1" name="utf8mb4_turkish_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="276" parent="1" name="utf8mb4_unicode_520_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="277" parent="1" name="utf8mb4_unicode_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="278" parent="1" name="utf8mb4_vi_0900_ai_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="279" parent="1" name="utf8mb4_vi_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="280" parent="1" name="utf8mb4_vietnamese_ci">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <collation id="281" parent="1" name="utf8mb4_zh_0900_as_cs">
++      <Charset>utf8mb4</Charset>
++    </collation>
++    <user id="282" parent="1" name="mysql.infoschema">
++      <Host>localhost</Host>
++      <Plugin>caching_sha2_password</Plugin>
++    </user>
++    <user id="283" parent="1" name="mysql.session">
++      <Host>localhost</Host>
++      <Plugin>caching_sha2_password</Plugin>
++    </user>
++    <user id="284" parent="1" name="mysql.sys">
++      <Host>localhost</Host>
++      <Plugin>caching_sha2_password</Plugin>
++    </user>
++    <user id="285" parent="1" name="root">
++      <Host>localhost</Host>
++    </user>
++    <table id="286" parent="3" name="t_coach">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="287" parent="3" name="t_course">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="288" parent="3" name="t_equipment">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="289" parent="3" name="t_loos">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="290" parent="3" name="t_member">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="291" parent="3" name="t_membertype">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="292" parent="3" name="t_module">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="293" parent="3" name="t_permission">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="294" parent="3" name="t_private">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="295" parent="3" name="t_role">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="296" parent="3" name="t_user">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <table id="297" parent="3" name="t_user_role">
++      <Collation>utf8_general_ci</Collation>
++    </table>
++    <column id="298" parent="286" name="coach_id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="299" parent="286" name="coach_name">
++      <Position>2</Position>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="300" parent="286" name="coach_sex">
++      <Position>3</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="301" parent="286" name="coach_phone">
++      <Position>4</Position>
++      <DataType>varchar(20)|0s</DataType>
++    </column>
++    <column id="302" parent="286" name="coach_address">
++      <Position>5</Position>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="303" parent="286" name="coach_data">
++      <Position>6</Position>
++      <DataType>date|0s</DataType>
++    </column>
++    <column id="304" parent="286" name="coach_year">
++      <Position>7</Position>
++      <DataType>varchar(5)|0s</DataType>
++    </column>
++    <column id="305" parent="286" name="coach_salary">
++      <Position>8</Position>
++      <DataType>varchar(10)|0s</DataType>
++    </column>
++    <column id="306" parent="286" name="is_valid">
++      <Position>9</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <key id="307" parent="286" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>coach_id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <column id="308" parent="287" name="subject_id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="309" parent="287" name="subject_name">
++      <Position>2</Position>
++      <DataType>varchar(20)|0s</DataType>
++    </column>
++    <column id="310" parent="287" name="subject_price">
++      <Position>3</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="311" parent="287" name="is_valid">
++      <Position>4</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <key id="312" parent="287" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>subject_id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <column id="313" parent="288" name="eq_Id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="314" parent="288" name="eq_Name">
++      <Position>2</Position>
++      <DataType>varchar(20)|0s</DataType>
++    </column>
++    <column id="315" parent="288" name="eq_Text">
++      <Position>3</Position>
++      <DataType>varchar(50)|0s</DataType>
++    </column>
++    <column id="316" parent="288" name="eq_image">
++      <Position>4</Position>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <key id="317" parent="288" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>eq_Id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <column id="318" parent="289" name="loos_Id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="319" parent="289" name="loos_Name">
++      <Position>2</Position>
++      <DataType>varchar(20)|0s</DataType>
++    </column>
++    <column id="320" parent="289" name="loos_Images">
++      <Position>3</Position>
++      <DataType>varchar(50)|0s</DataType>
++    </column>
++    <column id="321" parent="289" name="loos_Address">
++      <Position>4</Position>
++      <DataType>varchar(50)|0s</DataType>
++    </column>
++    <column id="322" parent="289" name="loosj_date">
++      <Position>5</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="323" parent="289" name="loos_Status">
++      <Position>6</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="324" parent="289" name="sc_avenger">
++      <Position>7</Position>
++      <DataType>varchar(50)|0s</DataType>
++    </column>
++    <column id="325" parent="289" name="loos_ldate">
++      <Position>8</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <key id="326" parent="289" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>loos_Id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <column id="327" parent="290" name="member_id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="328" parent="290" name="member_name">
++      <Position>2</Position>
++      <DataType>varchar(100)|0s</DataType>
++    </column>
++    <column id="329" parent="290" name="member_phone">
++      <Position>3</Position>
++      <DataType>varchar(20)|0s</DataType>
++    </column>
++    <column id="330" parent="290" name="member_sex">
++      <Position>4</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="331" parent="290" name="member_age">
++      <Position>5</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="332" parent="290" name="member_type">
++      <Position>6</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="333" parent="290" name="create_date">
++      <Position>7</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="334" parent="290" name="member_birthday">
++      <Position>8</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="335" parent="290" name="is_valid">
++      <Position>9</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="336" parent="290" name="member_renew">
++      <Position>10</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <index id="337" parent="290" name="fk_numbertype">
++      <ColNames>member_type</ColNames>
++      <Type>btree</Type>
++    </index>
++    <key id="338" parent="290" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>member_id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <foreign-key id="339" parent="290" name="fk_numbertype">
++      <ColNames>member_type</ColNames>
++      <RefTableName>t_membertype</RefTableName>
++      <RefColNames>type_id</RefColNames>
++    </foreign-key>
++    <column id="340" parent="291" name="type_id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="341" parent="291" name="type_name">
++      <Position>2</Position>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="342" parent="291" name="type_day">
++      <Position>3</Position>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="343" parent="291" name="type_money">
++      <Position>4</Position>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="344" parent="291" name="is_valid">
++      <Position>5</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <key id="345" parent="291" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>type_id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <column id="346" parent="292" name="id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="347" parent="292" name="module_name">
++      <Position>2</Position>
++      <Comment>资源名称</Comment>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="348" parent="292" name="module_style">
++      <Position>3</Position>
++      <Comment>模块样式</Comment>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="349" parent="292" name="url">
++      <Position>4</Position>
++      <Comment>地址</Comment>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="350" parent="292" name="parent_id">
++      <Position>5</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="351" parent="292" name="parent_opt_value">
++      <Position>6</Position>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="352" parent="292" name="grade">
++      <Position>7</Position>
++      <Comment>等级</Comment>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="353" parent="292" name="opt_value">
++      <Position>8</Position>
++      <Comment>权限值</Comment>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="354" parent="292" name="orders">
++      <Position>9</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="355" parent="292" name="is_valid">
++      <Position>10</Position>
++      <DataType>tinyint(4)|0s</DataType>
++    </column>
++    <column id="356" parent="292" name="create_date">
++      <Position>11</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="357" parent="292" name="update_date">
++      <Position>12</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <key id="358" parent="292" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <column id="359" parent="293" name="id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="360" parent="293" name="role_id">
++      <Position>2</Position>
++      <Comment>角色ID</Comment>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="361" parent="293" name="module_id">
++      <Position>3</Position>
++      <Comment>模块ID</Comment>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="362" parent="293" name="acl_value">
++      <Position>4</Position>
++      <Comment>权限值</Comment>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="363" parent="293" name="create_date">
++      <Position>5</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="364" parent="293" name="update_date">
++      <Position>6</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <key id="365" parent="293" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <column id="366" parent="294" name="private_id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="367" parent="294" name="member_id">
++      <Position>2</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="368" parent="294" name="coach_id">
++      <Position>3</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="369" parent="294" name="subject_id">
++      <Position>4</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="370" parent="294" name="buy_date">
++      <Position>5</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="371" parent="294" name="is_valid">
++      <Position>6</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="372" parent="294" name="buy_count">
++      <Position>7</Position>
++      <DataType>varchar(5)|0s</DataType>
++    </column>
++    <index id="373" parent="294" name="fk_member">
++      <ColNames>member_id</ColNames>
++      <Type>btree</Type>
++    </index>
++    <index id="374" parent="294" name="fk_coach">
++      <ColNames>coach_id</ColNames>
++      <Type>btree</Type>
++    </index>
++    <index id="375" parent="294" name="fk_subject">
++      <ColNames>subject_id</ColNames>
++      <Type>btree</Type>
++    </index>
++    <key id="376" parent="294" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>private_id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <foreign-key id="377" parent="294" name="fk_member">
++      <ColNames>member_id</ColNames>
++      <RefTableName>t_member</RefTableName>
++      <RefColNames>member_id</RefColNames>
++    </foreign-key>
++    <foreign-key id="378" parent="294" name="fk_coach">
++      <ColNames>coach_id</ColNames>
++      <RefTableName>t_coach</RefTableName>
++      <RefColNames>coach_id</RefColNames>
++    </foreign-key>
++    <foreign-key id="379" parent="294" name="fk_subject">
++      <ColNames>subject_id</ColNames>
++      <RefTableName>t_course</RefTableName>
++      <RefColNames>subject_id</RefColNames>
++    </foreign-key>
++    <column id="380" parent="295" name="id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="381" parent="295" name="role_name">
++      <Position>2</Position>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="382" parent="295" name="role_remark">
++      <Position>3</Position>
++      <Comment>备注</Comment>
++      <DataType>varchar(255)|0s</DataType>
++    </column>
++    <column id="383" parent="295" name="create_date">
++      <Position>4</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="384" parent="295" name="update_date">
++      <Position>5</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="385" parent="295" name="is_valid">
++      <Position>6</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <key id="386" parent="295" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <column id="387" parent="296" name="id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="388" parent="296" name="user_name">
++      <Position>2</Position>
++      <DataType>varchar(20)|0s</DataType>
++      <NotNull>1</NotNull>
++    </column>
++    <column id="389" parent="296" name="user_pwd">
++      <Position>3</Position>
++      <DataType>varchar(100)|0s</DataType>
++    </column>
++    <column id="390" parent="296" name="phone">
++      <Position>4</Position>
++      <DataType>varchar(20)|0s</DataType>
++    </column>
++    <column id="391" parent="296" name="is_valid">
++      <Position>5</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="392" parent="296" name="create_date">
++      <Position>6</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="393" parent="296" name="update_date">
++      <Position>7</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <key id="394" parent="296" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>id</ColNames>
++      <Primary>1</Primary>
++    </key>
++    <column id="395" parent="297" name="id">
++      <Position>1</Position>
++      <DataType>int(11)|0s</DataType>
++      <NotNull>1</NotNull>
++      <SequenceIdentity>null</SequenceIdentity>
++    </column>
++    <column id="396" parent="297" name="user_id">
++      <Position>2</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="397" parent="297" name="role_id">
++      <Position>3</Position>
++      <DataType>int(11)|0s</DataType>
++    </column>
++    <column id="398" parent="297" name="create_date">
++      <Position>4</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <column id="399" parent="297" name="update_date">
++      <Position>5</Position>
++      <DataType>datetime|0s</DataType>
++    </column>
++    <key id="400" parent="297" name="PRIMARY">
++      <NameSurrogate>1</NameSurrogate>
++      <ColNames>id</ColNames>
++      <Primary>1</Primary>
++    </key>
++  </database-model>
++</dataSource>
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <annotationProcessing>\r\n      <profile name=\"Maven default annotation processors profile\" enabled=\"true\">\r\n        <sourceOutputDir name=\"target/generated-sources/annotations\" />\r\n        <sourceTestOutputDir name=\"target/generated-test-sources/test-annotations\" />\r\n        <outputRelativeToContentRoot value=\"true\" />\r\n        <module name=\"gymsystem\" />\r\n      </profile>\r\n    </annotationProcessing>\r\n    <bytecodeTargetLevel>\r\n      <module name=\"gymsystem\" target=\"11\" />\r\n    </bytecodeTargetLevel>\r\n  </component>\r\n  <component name=\"JavacSettings\">\r\n    <option name=\"ADDITIONAL_OPTIONS_OVERRIDE\">\r\n      <module name=\"gymsystem\" options=\"-parameters\" />\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/.idea/compiler.xml	(date 1638848045169)
+@@ -2,6 +2,7 @@
+ <project version="4">
+   <component name="CompilerConfiguration">
+     <annotationProcessing>
++      <profile default="true" name="Default" enabled="true" />
+       <profile name="Maven default annotation processors profile" enabled="true">
+         <sourceOutputDir name="target/generated-sources/annotations" />
+         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"92481cda-80a9-47ca-8e9a-f0b19f680722\" name=\"Default Changelist\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_2_2.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/gymsystem.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/gymsystem.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/application.yml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/application.yml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"localRepository\" value=\"E:\\apache-maven-3.6.2\\myRep\" />\r\n        <option name=\"mavenHome\" value=\"$PROJECT_DIR$/../../apache-maven-3.6.2\" />\r\n        <option name=\"userSettingsFile\" value=\"E:\\apache-maven-3.6.2\\conf\\settings.xml\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"21ugz74qBClPeGGMFPG6xL1cWKs\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"preferences.externalResources\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\code\\gymsystem\\src\\main\\java\\com\\yjxxt\\gymsystem\" />\r\n      <recent name=\"E:\\code\\gymsystem\\src\\main\\resources\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"com.yjxxt.gymsystem\" />\r\n      <recent name=\"com.yjxxt.gymsystem.interceptors\" />\r\n      <recent name=\"com.yjxxt.gymsystem.config\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"GymsystemApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"gymsystem\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"com.yjxxt.gymsystem.GymsystemApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"92481cda-80a9-47ca-8e9a-f0b19f680722\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1638796648706</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1638796648706</updated>\r\n      <workItem from=\"1638796650652\" duration=\"339000\" />\r\n      <workItem from=\"1638836102279\" duration=\"799000\" />\r\n      <workItem from=\"1638844318271\" duration=\"754000\" />\r\n      <workItem from=\"1638845091537\" duration=\"221000\" />\r\n      <workItem from=\"1638845346164\" duration=\"1293000\" />\r\n      <workItem from=\"1638846749242\" duration=\"536000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/.idea/workspace.xml	(date 1638849023329)
+@@ -5,87 +5,89 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="92481cda-80a9-47ca-8e9a-f0b19f680722" name="Default Changelist" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_2_2.xml" beforeDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d013db-8fc0-49bc-b3e4-29a8cbe9b5f5/storage_v2/_src_/schema/sys.zb4BAA.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/bean/Permission.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/bean/Role.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/bean/UserRole.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/mapper/PermissionMapper.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/mapper/RoleMapper.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/mapper/UserRoleMapper.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/service/UserService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/PermissionMapper.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/RoleMapper.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/UserRoleMapper.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_27.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/gymsystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/gymsystem.iml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/GymsystemApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/GymsystemApplication.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/interceptors/NoLoginInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/interceptors/NoLoginInterceptor.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/utils/AssertUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/utils/AssertUtil.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/public/css/index.css" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/views/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/index.ftl" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+-  </component>
+-  <component name="Git.Settings">
+-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+-  </component>
+-  <component name="MavenImportPreferences">
+-    <option name="generalSettings">
+-      <MavenGeneralSettings>
+-        <option name="localRepository" value="E:\apache-maven-3.6.2\myRep" />
+-        <option name="mavenHome" value="$PROJECT_DIR$/../../apache-maven-3.6.2" />
+-        <option name="userSettingsFile" value="E:\apache-maven-3.6.2\conf\settings.xml" />
+-      </MavenGeneralSettings>
+-    </option>
+-  </component>
+-  <component name="ProjectId" id="21ugz74qBClPeGGMFPG6xL1cWKs" />
+-  <component name="ProjectViewState">
+-    <option name="hideEmptyMiddlePackages" value="true" />
+-    <option name="showLibraryContents" value="true" />
+   </component>
+   <component name="PropertiesComponent">
+-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
++    <property name="RequestMappingsPanelOrder0" value="0" />
++    <property name="RequestMappingsPanelOrder1" value="1" />
++    <property name="RequestMappingsPanelWidth0" value="75" />
++    <property name="RequestMappingsPanelWidth1" value="75" />
+     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+-    <property name="WebServerToolWindowFactoryState" value="false" />
+-    <property name="aspect.path.notification.shown" value="true" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
++    <property name="last_opened_file_path" value="F:/Java/mybatis-dtd/mybatis-generator-config_1_0.dtd" />
+     <property name="node.js.detected.package.eslint" value="true" />
+     <property name="node.js.detected.package.tslint" value="true" />
+     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+     <property name="settings.editor.selected.configurable" value="preferences.externalResources" />
+   </component>
+-  <component name="RecentsManager">
+-    <key name="CopyFile.RECENT_KEYS">
+-      <recent name="E:\code\gymsystem\src\main\java\com\yjxxt\gymsystem" />
+-      <recent name="E:\code\gymsystem\src\main\resources" />
+-    </key>
+-    <key name="CopyClassDialog.RECENTS_KEY">
+-      <recent name="com.yjxxt.gymsystem" />
+-      <recent name="com.yjxxt.gymsystem.interceptors" />
+-      <recent name="com.yjxxt.gymsystem.config" />
+-    </key>
+-  </component>
+   <component name="RunManager">
+-    <configuration name="GymsystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
++    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
++      <option name="arquillianRunConfiguration">
++        <value>
++          <option name="containerStateName" value="" />
++        </value>
++      </option>
++      <option name="TEST_OBJECT" value="class" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="GymsystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+       <module name="gymsystem" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="com.yjxxt.gymsystem.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
+       <option name="SPRING_BOOT_MAIN_CLASS" value="com.yjxxt.gymsystem.GymsystemApplication" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Spring Boot.GymsystemApplication" />
++      </list>
++    </recent_temporary>
+   </component>
+-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+-    <task active="true" id="Default" summary="Default task">
+-      <changelist id="92481cda-80a9-47ca-8e9a-f0b19f680722" name="Default Changelist" comment="" />
+-      <created>1638796648706</created>
+-      <option name="number" value="Default" />
+-      <option name="presentableId" value="Default" />
+-      <updated>1638796648706</updated>
+-      <workItem from="1638796650652" duration="339000" />
+-      <workItem from="1638836102279" duration="799000" />
+-      <workItem from="1638844318271" duration="754000" />
+-      <workItem from="1638845091537" duration="221000" />
+-      <workItem from="1638845346164" duration="1293000" />
+-      <workItem from="1638846749242" duration="536000" />
+-    </task>
+     <servers />
+-  </component>
+-  <component name="TypeScriptGeneratedFilesManager">
+-    <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+     <option name="TAB_STATES">
+Index: src/main/java/com/yjxxt/gymsystem/bean/UserRole.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/bean/UserRole.java b/src/main/java/com/yjxxt/gymsystem/bean/UserRole.java
+new file mode 100644
+--- /dev/null	(date 1638847541567)
++++ b/src/main/java/com/yjxxt/gymsystem/bean/UserRole.java	(date 1638847541567)
+@@ -0,0 +1,55 @@
++package com.yjxxt.gymsystem.bean;
++
++import java.util.Date;
++
++public class UserRole {
++    private Integer id;
++
++    private Integer userId;
++
++    private Integer roleId;
++
++    private Date createDate;
++
++    private Date updateDate;
++
++    public Integer getId() {
++        return id;
++    }
++
++    public void setId(Integer id) {
++        this.id = id;
++    }
++
++    public Integer getUserId() {
++        return userId;
++    }
++
++    public void setUserId(Integer userId) {
++        this.userId = userId;
++    }
++
++    public Integer getRoleId() {
++        return roleId;
++    }
++
++    public void setRoleId(Integer roleId) {
++        this.roleId = roleId;
++    }
++
++    public Date getCreateDate() {
++        return createDate;
++    }
++
++    public void setCreateDate(Date createDate) {
++        this.createDate = createDate;
++    }
++
++    public Date getUpdateDate() {
++        return updateDate;
++    }
++
++    public void setUpdateDate(Date updateDate) {
++        this.updateDate = updateDate;
++    }
++}
+\ No newline at end of file
+Index: src/main/java/com/yjxxt/gymsystem/bean/Role.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/bean/Role.java b/src/main/java/com/yjxxt/gymsystem/bean/Role.java
+new file mode 100644
+--- /dev/null	(date 1638847541566)
++++ b/src/main/java/com/yjxxt/gymsystem/bean/Role.java	(date 1638847541566)
+@@ -0,0 +1,65 @@
++package com.yjxxt.gymsystem.bean;
++
++import java.util.Date;
++
++public class Role {
++    private Integer id;
++
++    private String roleName;
++
++    private String roleRemark;
++
++    private Date createDate;
++
++    private Date updateDate;
++
++    private Integer isValid;
++
++    public Integer getId() {
++        return id;
++    }
++
++    public void setId(Integer id) {
++        this.id = id;
++    }
++
++    public String getRoleName() {
++        return roleName;
++    }
++
++    public void setRoleName(String roleName) {
++        this.roleName = roleName == null ? null : roleName.trim();
++    }
++
++    public String getRoleRemark() {
++        return roleRemark;
++    }
++
++    public void setRoleRemark(String roleRemark) {
++        this.roleRemark = roleRemark == null ? null : roleRemark.trim();
++    }
++
++    public Date getCreateDate() {
++        return createDate;
++    }
++
++    public void setCreateDate(Date createDate) {
++        this.createDate = createDate;
++    }
++
++    public Date getUpdateDate() {
++        return updateDate;
++    }
++
++    public void setUpdateDate(Date updateDate) {
++        this.updateDate = updateDate;
++    }
++
++    public Integer getIsValid() {
++        return isValid;
++    }
++
++    public void setIsValid(Integer isValid) {
++        this.isValid = isValid;
++    }
++}
+\ No newline at end of file
+Index: gymsystem.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule=\"true\" type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"FacetManager\">\r\n    <facet type=\"web\" name=\"Web\">\r\n      <configuration>\r\n        <webroots />\r\n        <sourceRoots>\r\n          <root url=\"file://$MODULE_DIR$/src/main/java\" />\r\n          <root url=\"file://$MODULE_DIR$/src/main/resources\" />\r\n        </sourceRoots>\r\n      </configuration>\r\n    </facet>\r\n    <facet type=\"Spring\" name=\"Spring\">\r\n      <configuration />\r\n    </facet>\r\n  </component>\r\n  <component name=\"NewModuleRootManager\" LANGUAGE_LEVEL=\"JDK_11\">\r\n    <output url=\"file://$MODULE_DIR$/target/classes\" />\r\n    <output-test url=\"file://$MODULE_DIR$/target/test-classes\" />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/main/java\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/main/resources\" type=\"java-resource\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/test/java\" isTestSource=\"true\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/target\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-starter-freemarker:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-starter:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-starter-logging:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: ch.qos.logback:logback-classic:1.2.3\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: ch.qos.logback:logback-core:1.2.3\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.apache.logging.log4j:log4j-to-slf4j:2.12.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.apache.logging.log4j:log4j-api:2.12.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.slf4j:jul-to-slf4j:1.7.29\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: jakarta.annotation:jakarta.annotation-api:1.3.5\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"RUNTIME\" name=\"Maven: org.yaml:snakeyaml:1.25\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.freemarker:freemarker:2.3.29\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-context-support:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-beans:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-context:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-starter-web:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-starter-json:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.fasterxml.jackson.core:jackson-databind:2.10.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.fasterxml.jackson.core:jackson-core:2.10.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.10.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.10.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-starter-tomcat:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.29\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.29\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.29\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-starter-validation:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: jakarta.validation:jakarta.validation-api:2.0.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.hibernate.validator:hibernate-validator:6.0.18.Final\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.jboss.logging:jboss-logging:3.4.1.Final\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.fasterxml:classmate:1.5.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-web:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-webmvc:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-expression:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-starter-jdbc:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.zaxxer:HikariCP:3.4.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-jdbc:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-tx:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.mybatis.spring.boot:mybatis-spring-boot-autoconfigure:2.2.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.mybatis:mybatis:3.5.7\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.mybatis:mybatis-spring:2.0.6\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"RUNTIME\" name=\"Maven: org.springframework.boot:spring-boot-devtools:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-autoconfigure:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"RUNTIME\" name=\"Maven: mysql:mysql-connector-java:8.0.18\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.springframework.boot:spring-boot-starter-test:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.springframework.boot:spring-boot-test:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.springframework.boot:spring-boot-test-autoconfigure:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: com.jayway.jsonpath:json-path:2.4.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: net.minidev:json-smart:2.3\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: net.minidev:accessors-smart:1.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.ow2.asm:asm:5.0.4\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.slf4j:slf4j-api:1.7.29\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: jakarta.activation:jakarta.activation-api:1.2.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.junit.jupiter:junit-jupiter:5.5.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.junit.jupiter:junit-jupiter-api:5.5.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.opentest4j:opentest4j:1.2.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.junit.platform:junit-platform-commons:1.5.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.junit.jupiter:junit-jupiter-params:5.5.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.junit.jupiter:junit-jupiter-engine:5.5.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.junit.vintage:junit-vintage-engine:5.5.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.apiguardian:apiguardian-api:1.1.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.junit.platform:junit-platform-engine:1.5.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: junit:junit:4.12\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.mockito:mockito-junit-jupiter:3.1.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.assertj:assertj-core:3.13.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.hamcrest:hamcrest:2.1\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.mockito:mockito-core:3.1.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: net.bytebuddy:byte-buddy:1.10.4\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: net.bytebuddy:byte-buddy-agent:1.10.4\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.objenesis:objenesis:2.6\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.skyscreamer:jsonassert:1.5.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-core:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-jcl:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.springframework:spring-test:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.xmlunit:xmlunit-core:2.6.3\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework.boot:spring-boot-starter-aop:2.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.springframework:spring-aop:5.2.2.RELEASE\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.aspectj:aspectjweaver:1.9.5\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.github.pagehelper:pagehelper-spring-boot-starter:1.2.13\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.github.pagehelper:pagehelper-spring-boot-autoconfigure:1.2.13\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.github.pagehelper:pagehelper:5.1.11\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.github.jsqlparser:jsqlparser:2.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.alibaba:druid:1.2.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: javax.annotation:javax.annotation-api:1.3.2\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.apache.commons:commons-lang3:3.5\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: com.alibaba:fastjson:1.2.47\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Maven: org.projectlombok:lombok:1.18.10\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gymsystem.iml b/gymsystem.iml
+--- a/gymsystem.iml	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/gymsystem.iml	(date 1638848843738)
+@@ -70,7 +70,7 @@
+     <orderEntry type="library" scope="RUNTIME" name="Maven: org.springframework.boot:spring-boot-devtools:2.2.2.RELEASE" level="project" />
+     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.2.2.RELEASE" level="project" />
+     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.2.2.RELEASE" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Maven: mysql:mysql-connector-java:8.0.18" level="project" />
++    <orderEntry type="library" scope="RUNTIME" name="Maven: mysql:mysql-connector-java:8.0.27" level="project" />
+     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.2.2.RELEASE" level="project" />
+     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test:2.2.2.RELEASE" level="project" />
+     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test-autoconfigure:2.2.2.RELEASE" level="project" />
+Index: src/main/java/com/yjxxt/gymsystem/mapper/UserRoleMapper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/mapper/UserRoleMapper.java b/src/main/java/com/yjxxt/gymsystem/mapper/UserRoleMapper.java
+new file mode 100644
+--- /dev/null	(date 1638847541570)
++++ b/src/main/java/com/yjxxt/gymsystem/mapper/UserRoleMapper.java	(date 1638847541570)
+@@ -0,0 +1,17 @@
++package com.yjxxt.gymsystem.mapper;
++
++import com.yjxxt.gymsystem.bean.UserRole;
++
++public interface UserRoleMapper {
++    int deleteByPrimaryKey(Integer id);
++
++    int insert(UserRole record);
++
++    int insertSelective(UserRole record);
++
++    UserRole selectByPrimaryKey(Integer id);
++
++    int updateByPrimaryKeySelective(UserRole record);
++
++    int updateByPrimaryKey(UserRole record);
++}
+\ No newline at end of file
+Index: src/main/java/com/yjxxt/gymsystem/bean/Permission.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/bean/Permission.java b/src/main/java/com/yjxxt/gymsystem/bean/Permission.java
+new file mode 100644
+--- /dev/null	(date 1638847541566)
++++ b/src/main/java/com/yjxxt/gymsystem/bean/Permission.java	(date 1638847541566)
+@@ -0,0 +1,65 @@
++package com.yjxxt.gymsystem.bean;
++
++import java.util.Date;
++
++public class Permission {
++    private Integer id;
++
++    private Integer roleId;
++
++    private Integer moduleId;
++
++    private String aclValue;
++
++    private Date createDate;
++
++    private Date updateDate;
++
++    public Integer getId() {
++        return id;
++    }
++
++    public void setId(Integer id) {
++        this.id = id;
++    }
++
++    public Integer getRoleId() {
++        return roleId;
++    }
++
++    public void setRoleId(Integer roleId) {
++        this.roleId = roleId;
++    }
++
++    public Integer getModuleId() {
++        return moduleId;
++    }
++
++    public void setModuleId(Integer moduleId) {
++        this.moduleId = moduleId;
++    }
++
++    public String getAclValue() {
++        return aclValue;
++    }
++
++    public void setAclValue(String aclValue) {
++        this.aclValue = aclValue == null ? null : aclValue.trim();
++    }
++
++    public Date getCreateDate() {
++        return createDate;
++    }
++
++    public void setCreateDate(Date createDate) {
++        this.createDate = createDate;
++    }
++
++    public Date getUpdateDate() {
++        return updateDate;
++    }
++
++    public void setUpdateDate(Date updateDate) {
++        this.updateDate = updateDate;
++    }
++}
+\ No newline at end of file
+Index: src/main/java/com/yjxxt/gymsystem/mapper/RoleMapper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/mapper/RoleMapper.java b/src/main/java/com/yjxxt/gymsystem/mapper/RoleMapper.java
+new file mode 100644
+--- /dev/null	(date 1638847541568)
++++ b/src/main/java/com/yjxxt/gymsystem/mapper/RoleMapper.java	(date 1638847541568)
+@@ -0,0 +1,17 @@
++package com.yjxxt.gymsystem.mapper;
++
++import com.yjxxt.gymsystem.bean.Role;
++
++public interface RoleMapper {
++    int deleteByPrimaryKey(Integer id);
++
++    int insert(Role record);
++
++    int insertSelective(Role record);
++
++    Role selectByPrimaryKey(Integer id);
++
++    int updateByPrimaryKeySelective(Role record);
++
++    int updateByPrimaryKey(Role record);
++}
+\ No newline at end of file
+Index: src/main/java/com/yjxxt/gymsystem/service/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/service/UserService.java b/src/main/java/com/yjxxt/gymsystem/service/UserService.java
+new file mode 100644
+--- /dev/null	(date 1638848471824)
++++ b/src/main/java/com/yjxxt/gymsystem/service/UserService.java	(date 1638848471824)
+@@ -0,0 +1,9 @@
++package com.yjxxt.gymsystem.service;
++
++import com.yjxxt.gymsystem.base.BaseService;
++import com.yjxxt.gymsystem.bean.User;
++import org.springframework.stereotype.Service;
++
++@Service
++public class UserService extends BaseService<User,Integer> {
++}
+Index: src/main/java/com/yjxxt/gymsystem/mapper/PermissionMapper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/mapper/PermissionMapper.java b/src/main/java/com/yjxxt/gymsystem/mapper/PermissionMapper.java
+new file mode 100644
+--- /dev/null	(date 1638847541568)
++++ b/src/main/java/com/yjxxt/gymsystem/mapper/PermissionMapper.java	(date 1638847541568)
+@@ -0,0 +1,17 @@
++package com.yjxxt.gymsystem.mapper;
++
++import com.yjxxt.gymsystem.bean.Permission;
++
++public interface PermissionMapper {
++    int deleteByPrimaryKey(Integer id);
++
++    int insert(Permission record);
++
++    int insertSelective(Permission record);
++
++    Permission selectByPrimaryKey(Integer id);
++
++    int updateByPrimaryKeySelective(Permission record);
++
++    int updateByPrimaryKey(Permission record);
++}
+\ No newline at end of file
+Index: src/main/java/com/yjxxt/gymsystem/utils/AssertUtil.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yjxxt.gymsystem.utils;\r\n\r\n\r\nimport com.yjx.crm.exceptions.ParamsException;\r\n\r\npublic class AssertUtil {\r\n\r\n\r\n    public  static void isTrue(Boolean flag,String msg){\r\n        if(flag){\r\n            throw  new ParamsException(msg);\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/yjxxt/gymsystem/utils/AssertUtil.java b/src/main/java/com/yjxxt/gymsystem/utils/AssertUtil.java
+--- a/src/main/java/com/yjxxt/gymsystem/utils/AssertUtil.java	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/src/main/java/com/yjxxt/gymsystem/utils/AssertUtil.java	(date 1638848366225)
+@@ -1,7 +1,7 @@
+ package com.yjxxt.gymsystem.utils;
+ 
+ 
+-import com.yjx.crm.exceptions.ParamsException;
++import com.yjxxt.gymsystem.exceptions.ParamsException;
+ 
+ public class AssertUtil {
+ 
+Index: src/main/resources/views/index.ftl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>后台管理-登录</title>\r\n    <#include \"common.ftl\">\r\n    <link rel=\"stylesheet\" href=\"${ctx}/css/index.css\" media=\"all\">\r\n</head>\r\n<body>\r\n<div class=\"layui-container\">\r\n    <div class=\"admin-login-background\">\r\n        <div class=\"layui-form login-form\">\r\n            <form class=\"layui-form\" action=\"\">\r\n                <div class=\"layui-form-item logo-title\">\r\n                    <h1>CRM后端登录</h1>\r\n                </div>\r\n                <div class=\"layui-form-item\">\r\n                    <label class=\"layui-icon layui-icon-username\" for=\"username\"></label>\r\n                    <input type=\"text\" name=\"username\" lay-verify=\"required|account\" placeholder=\"用户名或者邮箱\" autocomplete=\"off\" class=\"layui-input\" >\r\n                </div>\r\n                <div class=\"layui-form-item\">\r\n                    <label class=\"layui-icon layui-icon-password\" for=\"password\"></label>\r\n                    <input type=\"password\" name=\"password\" lay-verify=\"required|password\" placeholder=\"密码\" autocomplete=\"off\" class=\"layui-input\" >\r\n                </div>\r\n                <div class=\"layui-form-item\">\r\n                    <button class=\"layui-btn layui-btn-fluid\" lay-submit=\"\" lay-filter=\"login\">登 录</button>\r\n                </div>\r\n                <#-- 记住我 -->\r\n                <div class=\"layui-form-item\">\r\n                    <input type=\"checkbox\" name=\"rememberMe\" id=\"rememberMe\" value=\"true\" lay- skin=\"primary\" title=\"记住密码\">\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n<script src=\"${ctx}/js/index.js\" charset=\"utf-8\"></script>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/views/index.ftl b/src/main/resources/views/index.ftl
+--- a/src/main/resources/views/index.ftl	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/src/main/resources/views/index.ftl	(date 1638847958633)
+@@ -12,7 +12,7 @@
+         <div class="layui-form login-form">
+             <form class="layui-form" action="">
+                 <div class="layui-form-item logo-title">
+-                    <h1>CRM后端登录</h1>
++                    <h1>健身房后台登录</h1>
+                 </div>
+                 <div class="layui-form-item">
+                     <label class="layui-icon layui-icon-username" for="username"></label>
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"RemoteRepositoriesConfiguration\">\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"central\" />\r\n      <option name=\"name\" value=\"Maven Central repository\" />\r\n      <option name=\"url\" value=\"https://repo1.maven.org/maven2\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"jboss.community\" />\r\n      <option name=\"name\" value=\"JBoss Community repository\" />\r\n      <option name=\"url\" value=\"https://repository.jboss.org/nexus/content/repositories/public/\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"central\" />\r\n      <option name=\"name\" value=\"Central Repository\" />\r\n      <option name=\"url\" value=\"http://maven.aliyun.com/nexus/content/groups/public\" />\r\n    </remote-repository>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/jarRepositories.xml b/.idea/jarRepositories.xml
+--- a/.idea/jarRepositories.xml	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/.idea/jarRepositories.xml	(date 1638848843753)
+@@ -3,6 +3,11 @@
+   <component name="RemoteRepositoriesConfiguration">
+     <remote-repository>
+       <option name="id" value="central" />
++      <option name="name" value="Central Repository" />
++      <option name="url" value="https://repo.maven.apache.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="central" />
+       <option name="name" value="Maven Central repository" />
+       <option name="url" value="https://repo1.maven.org/maven2" />
+     </remote-repository>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 2bd54d02c88a4a3f2a394b0e7d851ae779f3ca83)
++++ b/.idea/misc.xml	(date 1638848207331)
+@@ -7,6 +7,9 @@
+       </list>
+     </option>
+   </component>
++  <component name="ProjectResources">
++    <resource url="http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" location="F:/Java/mybatis-dtd/mybatis-generator-config_1_0.dtd" />
++  </component>
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
