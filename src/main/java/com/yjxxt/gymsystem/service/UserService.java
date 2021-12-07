@@ -18,6 +18,9 @@ public class UserService extends BaseService<User,Integer> {
     public UserModel login(String username,String pwd){
         checkIsBlank(username,pwd);
         //验证用户是否存在
+        User user = userMapper.selectByUserName(username);
+        AssertUtil.isTrue(user==null,"该用户不存在");
+
 
     }
 
