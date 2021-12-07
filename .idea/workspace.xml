@@ -23,7 +23,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92481cda-80a9-47ca-8e9a-f0b19f680722" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/main/resources/views/main.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/main.ftl" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_12_7_12_33__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_12_7_12_33__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" afterDir="false" />
+>>>>>>> b42fb6c9852ac3c4371db22b0cee0aad1e2244aa
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +110,7 @@
       <workItem from="1638836102279" duration="799000" />
       <workItem from="1638843315577" duration="3460000" />
       <workItem from="1638859857049" duration="1395000" />
+      <workItem from="1638863637991" duration="104000" />
     </task>
     <servers />
   </component>
