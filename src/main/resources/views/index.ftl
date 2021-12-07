@@ -12,7 +12,11 @@
         <div class="layui-form login-form">
             <form class="layui-form" action="">
                 <div class="layui-form-item logo-title">
+<<<<<<< HEAD
                     <h1>健身房登录</h1>
+=======
+                    <h1>健身房后台登录</h1>
+>>>>>>> 0f74b5b36de1deae12cf73804c578cf09b2f2f97
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="username"></label>
