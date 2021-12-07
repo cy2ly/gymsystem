@@ -9,8 +9,8 @@ layui.use(['element', 'layer', 'layuimini','jquery','jquery_cookie'], function (
     /*** 用户退出 * 删除cookie */
     $(".login-out").click(function () {
         // 删除 cookie
-        $.removeCookie("userIdStr", {domain:"localhost",path:"/crm"});
-        $.removeCookie("userName", {domain:"localhost",path:"/crm"});
+        $.removeCookie("userIdStr", {domain:"localhost",path:"/gymsystem"});
+        $.removeCookie("userName", {domain:"localhost",path:"/gymsystem"});
         // 跳转到登录页面 (父窗口跳转)
         window.parent.location.href = ctx + "/index"; });
 

@@ -17,6 +17,11 @@
         <a>
             <div class="layuimini-tool"><i title="展开" class="fa fa-outdent" data-side-fold="1"></i></div>
         </a>
+        <div id="space">
+            <a href="#">
+                <marquee id="right" crollamount="5">特别公告:本系统为测试版，有问题请联系我们工作人员，电话:147147141748</marquee>
+            </a>
+        </div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item mobile layui-hide-xs" lay-unselect>
                 <a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>
