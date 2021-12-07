@@ -1,7 +1,7 @@
 package com.yjxxt.gymsystem.utils;
 
 
-import com.yjx.crm.exceptions.ParamsException;
+import com.yjxxt.gymsystem.exceptions.ParamsException;
 
 public class AssertUtil {
 
