@@ -1,4 +1,4 @@
-package com.yjxxt.gymsystem.Service;
+package com.yjxxt.gymsystem.service;
 
 import com.yjxxt.gymsystem.base.BaseService;
 import com.yjxxt.gymsystem.bean.User;

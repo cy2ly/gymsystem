@@ -1,6 +1,6 @@
 package com.yjxxt.gymsystem.interceptors;
 
-import com.yjxxt.gymsystem.Service.UserService;
+import com.yjxxt.gymsystem.service.UserService;
 import com.yjxxt.gymsystem.exceptions.NoLoginException;
 import com.yjxxt.gymsystem.utils.LoginUserUtil;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

@@ -5,11 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92481cda-80a9-47ca-8e9a-f0b19f680722" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/Service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/interceptors/NoLoginInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/interceptors/NoLoginInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/public/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/index.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/index.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yjxxt/gymsystem/GymsystemApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/yjxxt/gymsystem/GymsystemApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yjxxt/gymsystem/bean/Permission.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yjxxt/gymsystem/bean/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yjxxt/gymsystem/bean/UserRole.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yjxxt/gymsystem/mapper/PermissionMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yjxxt/gymsystem/mapper/RoleMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yjxxt/gymsystem/mapper/UserRoleMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/generatorConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mappers/PermissionMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mappers/RoleMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mappers/UserRoleMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/public/css/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +52,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
