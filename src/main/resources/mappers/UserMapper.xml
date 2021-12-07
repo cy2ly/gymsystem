@@ -19,6 +19,11 @@
     from t_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByUserName" resultType="com.yjxxt.gymsystem.bean.User">
+    select
+    <include refid="Base_Column_List" />
+    from t_user where user_name = #{userName};
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
