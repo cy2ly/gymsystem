@@ -17,7 +17,7 @@ public class IndexController extends BaseController {
     private UserService userService;
 
     /*登陆主界面*/
-    @RequestMapping("index")
+    @RequestMapping({"/","index"})
     public String index(){
         return "index";
     }
