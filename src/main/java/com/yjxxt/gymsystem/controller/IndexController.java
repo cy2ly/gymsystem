@@ -34,4 +34,6 @@ public class IndexController extends BaseController {
     public String welcome(){
         return "welcome";
     }
+
+
 }
