@@ -2,6 +2,7 @@ package com.yjxxt.gymsystem.controller;
 
 import com.yjxxt.gymsystem.base.BaseController;
 import com.yjxxt.gymsystem.base.ResultInfo;
+import com.yjxxt.gymsystem.model.UserModel;
 import com.yjxxt.gymsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,12 @@ public class UserController extends BaseController {
     //用户登录
     @RequestMapping("login")
     @ResponseBody
-    public ResultInfo login(String username,String pwd){
+    public ResultInfo login(String userName,String userPwd){
         ResultInfo resultInfo = new ResultInfo();
-        userService.login(username,pwd);
+        System.out.println(userName+userPwd);
+        UserModel userModel = userService.login(userName, userPwd);
+        System.out.println(userModel);
+        resultInfo.setResult(userModel);
+        return resultInfo;
     }
 }

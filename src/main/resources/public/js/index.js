@@ -35,7 +35,6 @@ layui.use(['form','jquery','jquery_cookie','layer'], function () {
                         var result = data.result;
                         $.cookie("userIdStr", result.userIdStr);
                         $.cookie("userName", result.userName);
-                        $.cookie("trueName", result.trueName);
                         // 登录成功后，跳转到首页
                         window.location.href = ctx + "/main";
                     });

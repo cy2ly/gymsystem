@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserModel {
-    private Integer userIdStr;
+    private String userIdStr;
     private String userName;
 }

@@ -29,4 +29,9 @@ public class IndexController extends BaseController {
         request.setAttribute("user",user);
         return "main";
     }
+
+    @RequestMapping("welcome")
+    public String welcome(){
+        return "welcome";
+    }
 }
