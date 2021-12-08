@@ -35,6 +35,15 @@ layui.use(['form','jquery','jquery_cookie','layer'], function () {
                         var result = data.result;
                         $.cookie("userIdStr", result.userIdStr);
                         $.cookie("userName", result.userName);
+                        // 如果用户选择"记住我"，则设置cookie的有效期为7天
+                        if($("input[type='checkbox']").is(":checked")) {
+                            $.cookie("userIdStr", result.userIdStr, {
+                                expires: 7
+                            });
+                            $.cookie("userName", result.userName, {
+                                expires: 7
+                            })
+                        }
                         // 登录成功后，跳转到首页
                         window.location.href = ctx + "/main";
                     });

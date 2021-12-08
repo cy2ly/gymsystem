@@ -10,6 +10,8 @@ import com.yjxxt.gymsystem.utils.UserIDBase64;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService extends BaseService<User,Integer> {
@@ -29,18 +31,45 @@ public class UserService extends BaseService<User,Integer> {
         return buildUser(user);
     }
 
-    private UserModel buildUser(User user) {
+    public UserModel buildUser(User user) {
         UserModel userModel = new UserModel();
         userModel.setUserName(user.getUserName());
         userModel.setUserIdStr(UserIDBase64.encoderUserID(user.getId()));
         return userModel;
     }
 
-    private void checkIsBlank(String userName, String pwd) {
+    public void checkIsBlank(String userName, String pwd) {
         //用户名不能为空
         AssertUtil.isTrue(StringUtils.isBlank(userName),"用户名不能为空");
         //密码不能为空
         AssertUtil.isTrue(StringUtils.isBlank(pwd),"密码不能为空");
     }
 
+    /**
+     * 修改密码
+     * @param userId
+     * @param oldPwd
+     * @param newPwd
+     * @param confirmPwd
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updatePassword(Integer userId,String oldPwd,String newPwd,String confirmPwd){
+        //校验数据
+        User user = userMapper.selectByPrimaryKey(userId);
+        checkUpdatePassword(user,oldPwd,newPwd,confirmPwd);
+        //设置新密码
+        user.setUserPwd(Md5Util.encode(confirmPwd));
+        //修改密码
+        AssertUtil.isTrue(userMapper.updateByPrimaryKeySelective(user)<1,"密码修改失败");
+    }
+
+    public void checkUpdatePassword(User user, String oldPwd, String newPwd, String confirmPwd) {
+        AssertUtil.isTrue(user==null,"用户不存在或用户未登录");
+        AssertUtil.isTrue(oldPwd.isBlank(),"旧密码不能为空");
+        AssertUtil.isTrue(!(user.getUserPwd().equals(Md5Util.encode(oldPwd))),"旧密码输入错误");
+        AssertUtil.isTrue(newPwd.isBlank(),"新密码不能为空");
+        AssertUtil.isTrue(newPwd.equals(oldPwd),"新密码不能和旧密码一致");
+        AssertUtil.isTrue(confirmPwd.isBlank(),"确认密码不能为空");
+        AssertUtil.isTrue(!(confirmPwd.equals(newPwd)),"确认密码必须与新密码一致");
+    }
 }
