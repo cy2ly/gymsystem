@@ -160,10 +160,6 @@
       </if>
     </where>
   </select>
-  <select id="selectCoachIdByName" resultType="java.lang.Integer">
-    select coach_id
-    from t_coach where coach_name = #{coachName};
-  </select>
   <update id="deleteBatch">
     update
     t_coach
@@ -176,5 +172,4 @@
       #{id}
     </foreach>
   </update>
-
 </mapper>
