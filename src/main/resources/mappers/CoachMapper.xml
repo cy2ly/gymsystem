@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yjxxt.gymsystem.mapper.CoachMapper" >
+  <resultMap id="BaseResultMap" type="com.yjxxt.gymsystem.bean.Coach" >
+    <id column="coach_id" property="coachId" jdbcType="INTEGER" />
+    <result column="coach_name" property="coachName" jdbcType="VARCHAR" />
+    <result column="coach_age" property="coachAge" jdbcType="INTEGER" />
+    <result column="coach_sex" property="coachSex" jdbcType="INTEGER" />
+    <result column="coach_phone" property="coachPhone" jdbcType="VARCHAR" />
+    <result column="coach_address" property="coachAddress" jdbcType="VARCHAR" />
+    <result column="coach_date" property="coachDate" jdbcType="DATE" />
+    <result column="coach_year" property="coachYear" jdbcType="VARCHAR" />
+    <result column="coach_salary" property="coachSalary" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    coach_id, coach_name, coach_age, coach_sex, coach_phone, coach_address, coach_date,
+    coach_year, coach_salary, is_valid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_coach
+    where coach_id = #{coachId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_coach
+    where coach_id = #{coachId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.yjxxt.gymsystem.bean.Coach" >
+    insert into t_coach
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coachId != null" >
+        coach_id,
+      </if>
+      <if test="coachName != null" >
+        coach_name,
+      </if>
+      <if test="coachAge != null" >
+        coach_age,
+      </if>
+      <if test="coachSex != null" >
+        coach_sex,
+      </if>
+      <if test="coachPhone != null" >
+        coach_phone,
+      </if>
+      <if test="coachAddress != null" >
+        coach_address,
+      </if>
+      <if test="coachDate != null" >
+        coach_date,
+      </if>
+      <if test="coachYear != null" >
+        coach_year,
+      </if>
+      <if test="coachSalary != null" >
+        coach_salary,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coachId != null" >
+        #{coachId,jdbcType=INTEGER},
+      </if>
+      <if test="coachName != null" >
+        #{coachName,jdbcType=VARCHAR},
+      </if>
+      <if test="coachAge != null" >
+        #{coachAge,jdbcType=INTEGER},
+      </if>
+      <if test="coachSex != null" >
+        #{coachSex,jdbcType=INTEGER},
+      </if>
+      <if test="coachPhone != null" >
+        #{coachPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="coachAddress != null" >
+        #{coachAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coachDate != null" >
+        #{coachDate,jdbcType=DATE},
+      </if>
+      <if test="coachYear != null" >
+        #{coachYear,jdbcType=VARCHAR},
+      </if>
+      <if test="coachSalary != null" >
+        #{coachSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yjxxt.gymsystem.bean.Coach" >
+    update t_coach
+    <set >
+      <if test="coachName != null" >
+        coach_name = #{coachName,jdbcType=VARCHAR},
+      </if>
+      <if test="coachAge != null" >
+        coach_age = #{coachAge,jdbcType=INTEGER},
+      </if>
+      <if test="coachSex != null" >
+        coach_sex = #{coachSex,jdbcType=INTEGER},
+      </if>
+      <if test="coachPhone != null" >
+        coach_phone = #{coachPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="coachAddress != null" >
+        coach_address = #{coachAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coachDate != null" >
+        coach_date = #{coachDate,jdbcType=DATE},
+      </if>
+      <if test="coachYear != null" >
+        coach_year = #{coachYear,jdbcType=VARCHAR},
+      </if>
+      <if test="coachSalary != null" >
+        coach_salary = #{coachSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where coach_id = #{coachId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yjxxt.gymsystem.bean.Coach" >
+    update t_coach
+    set coach_name = #{coachName,jdbcType=VARCHAR},
+      coach_age = #{coachAge,jdbcType=INTEGER},
+      coach_sex = #{coachSex,jdbcType=INTEGER},
+      coach_phone = #{coachPhone,jdbcType=VARCHAR},
+      coach_address = #{coachAddress,jdbcType=VARCHAR},
+      coach_date = #{coachDate,jdbcType=DATE},
+      coach_year = #{coachYear,jdbcType=VARCHAR},
+      coach_salary = #{coachSalary,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=INTEGER}
+    where coach_id = #{coachId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByParams" resultType="com.yjxxt.gymsystem.bean.Coach" parameterType="com.yjxxt.gymsystem.query.CoachQuery">
+    select
+    <include refid="Base_Column_List"/>
+    from t_coach
+    <where>
+      is_valid=1
+      <if test="null !=coachName and coachName !=''">
+        and coach_name like concat('%',#{coachName},'%')
+      </if>
+      <if test="null !=coachSex and coachSex !=''">
+        and coach_sex =#{coachSex}
+      </if>
+      <if test="null !=minYear and minYear !=''">
+        and coach_year >= #{minYear}
+      </if>
+      <if test="null!=maxYear and maxYear!=''">
+        and coach_year &lt;= #{maxYear}
+      </if>
+    </where>
+  </select>
+  <update id="deleteBatch">
+    update
+    t_coach
+    set
+    is_valid = 0
+    where
+    coach_id
+    in
+    <foreach collection="array" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </update>
+</mapper>

@@ -23,7 +23,6 @@ layui.use(['form','jquery','jquery_cookie','layer'], function () {
                     layer.msg("用户密码修改成功，系统将在3秒种后退出",function (){
                         $.removeCookie("userIdStr", {domain:"localhost",path:"/crm"});
                         $.removeCookie("userName", {domain:"localhost",path:"/crm"});
-                        $.removeCookie("trueName", {domain:"localhost",path:"/crm"});
                         window.parent.location.href = ctx+"/index";
                     });
                 }else {
