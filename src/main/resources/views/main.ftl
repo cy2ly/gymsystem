@@ -116,6 +116,7 @@
                             <dl class="layui-nav-child">
                                 <dd>
                                     <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="report/0" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 器材信息</span></a>
+                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="equipment/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 器材信息</span></a>
                                 </dd>
                             </dl>
                         </li>
