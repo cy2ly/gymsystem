@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yjxxt.gymsystem.mapper.MerchandiseMapper" >
+  <resultMap id="BaseResultMap" type="com.yjxxt.gymsystem.bean.Merchandise" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="purchasing_price" property="purchasingPrice" jdbcType="DOUBLE" />
+    <result column="selling_price" property="sellingPrice" jdbcType="DOUBLE" />
+    <result column="stock" property="stock" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, product_name, purchasing_price, selling_price, stock, remarks, is_valid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_merchandise
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_merchandise
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yjxxt.gymsystem.bean.Merchandise" >
+    insert into t_merchandise (product_id, product_name, purchasing_price, 
+      selling_price, stock, remarks, 
+      is_valid)
+    values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{purchasingPrice,jdbcType=DOUBLE}, 
+      #{sellingPrice,jdbcType=DOUBLE}, #{stock,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{isValid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yjxxt.gymsystem.bean.Merchandise" >
+    insert into t_merchandise
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="purchasingPrice != null" >
+        purchasing_price,
+      </if>
+      <if test="sellingPrice != null" >
+        selling_price,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasingPrice != null" >
+        #{purchasingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="sellingPrice != null" >
+        #{sellingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yjxxt.gymsystem.bean.Merchandise" >
+    update t_merchandise
+    <set >
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasingPrice != null" >
+        purchasing_price = #{purchasingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="sellingPrice != null" >
+        selling_price = #{sellingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yjxxt.gymsystem.bean.Merchandise" >
+    update t_merchandise
+    set product_name = #{productName,jdbcType=VARCHAR},
+      purchasing_price = #{purchasingPrice,jdbcType=DOUBLE},
+      selling_price = #{sellingPrice,jdbcType=DOUBLE},
+      stock = #{stock,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+
+  <!--  查询用户数据-->
+  <select id="selectByParams" parameterType="MerchandiseQuery" resultType="Merchandise">
+    select * from  t_merchandise
+    <where>
+      is_valid = 1
+      <if test="productName != null and productName != ''">
+        and product_name like concat('%',#{productName},'%')
+      </if>
+    </where>
+  </select>
+<!--  根据商品名称查询商品信息-->
+  <select id="selectByProductName" resultType="com.yjxxt.gymsystem.bean.Merchandise">
+    select * from t_merchandise where product_name=#{productName}
+  </select>
+
+
+  <!--  <批量删除-->
+  <delete id="deleteBatch">
+    delete from
+    t_merchandise
+    where
+    product_id
+    in
+    <foreach collection="array" item="productId" open="(" close=")" separator=",">
+      #{productId}
+    </foreach>
+  </delete>
+
+  <!--  查询所有商品的名称-->
+  <select id="queryAllSales" resultType="java.lang.String">
+    select product_name name from t_merchandise
+
+  </select>
+<!--  根据id查询售价-->
+  <select id="selectbyprice" resultType="java.lang.Double">
+    select purchasing_price from t_merchandise where product_name=#{productName}
+  </select>
+<!--  根据商品名字查询商品id-->
+  <select id="sleetById" resultType="java.lang.Integer">
+    select product_id from t_merchandise where product_name=#{productName}
+  </select>
+
+</mapper>
