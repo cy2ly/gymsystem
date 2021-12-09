@@ -89,14 +89,14 @@
                             </a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-7" data-tab="customer/index" target="_self"><i class="fa fa-exchange"></i><span class="layui-left-nav"> 教练列表</span></a>
+                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-7" data-tab="coach/index" target="_self"><i class="fa fa-exchange"></i><span class="layui-left-nav"> 教练列表</span></a>
                             </dd>
-                            <dd>
-                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-8" data-tab="customer_loss/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 会员私教课程列表</span></a>
+                            <#--<dd>
+                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-8" data-tab="course/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 会员私教课程列表</span></a>
                             </dd>
                             <dd>
                                 <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-9" data-tab="customer_loss/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 会员私教详情</span></a>
-                            </dd>
+                            </dd>-->
                         </dl>
                     </li>
                         <li class="layui-nav-item">
