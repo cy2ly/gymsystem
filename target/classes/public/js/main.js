@@ -13,6 +13,4 @@ layui.use(['element', 'layer', 'layuimini','jquery','jquery_cookie'], function (
         $.removeCookie("userName", {domain:"localhost",path:"/gymsystem"});
         // 跳转到登录页面 (父窗口跳转)
         window.parent.location.href = ctx + "/index"; });
-
-
 });
