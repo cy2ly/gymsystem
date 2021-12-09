@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -61,4 +62,16 @@ public class MemberTypeController extends BaseController {
         memberTypeService.dropMemberType(ids);
         return success();
     }
+    @RequestMapping("/findType")
+    @ResponseBody
+    public List<Map<String,Object>> findType(){
+
+        return memberTypeService.findType();
+    }
+    @RequestMapping("/analysis")
+    public String number(){
+        return "/analysis";
+    }
+
+
 }

@@ -13,22 +13,6 @@
                    lay-verify="required" name="userName" id="userName"  value="${(user.userName)!}" placeholder="请输入用户名">
         </div>
     </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
-        <label class="layui-form-label">真实姓名</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input userName"
-                   lay-verify="required" name="trueName" id="trueName" value="${(user.trueName)!}" placeholder="请输入真实姓名">
-        </div>
-    </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
-        <label class="layui-form-label">邮箱</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input userEmail"
-                   lay-verify="email" name="email" value="${(user.email)!}"
-                   id="email"
-                   placeholder="请输入邮箱">
-        </div>
-    </div>
 
     <div class="layui-form-item layui-row layui-col-xs12">
         <label class="layui-form-label">手机号</label>
@@ -42,6 +26,11 @@
         <label class="layui-form-label">角色</label>
         <div class="layui-input-block">
             <select name="roleIds"  xm-select="selectId">
+                <option value="">请选择</option>
+                <option value="1" >总经理</option>
+                <option value="2">会员</option>
+                <option value="3">教练</option>
+                <option value="4">前台</option>
             </select>
         </div>
     </div>

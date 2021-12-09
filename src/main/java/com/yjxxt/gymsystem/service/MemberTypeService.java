@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -87,5 +88,9 @@ public class MemberTypeService extends BaseService<MemberType, Integer> {
         }
         System.out.println(idss.length);
         memberTypeMapper.deleteBatch(idss);
+    }
+
+    public List<Map<String, Object>> findType() {
+        return memberTypeMapper.findType();
     }
 }

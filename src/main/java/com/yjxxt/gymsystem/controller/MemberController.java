@@ -1,5 +1,6 @@
 package com.yjxxt.gymsystem.controller;
 
+import com.yjxxt.gymsystem.annotation.RequiredPermission;
 import com.yjxxt.gymsystem.base.BaseController;
 import com.yjxxt.gymsystem.base.ResultInfo;
 import com.yjxxt.gymsystem.bean.Member;
@@ -24,14 +25,28 @@ public class MemberController extends BaseController {
     public String index(){
         return "/member/member";
     }
+    @RequestMapping("/outdate")
+    public String outdate(){
+        return "/member/memberout";
+    }
 
+    @RequestMapping("/list1")
+    @ResponseBody
+//    @RequiredPermission(code = "101001")
+    public Map<String, Object> list1(MemberQuery memberQuery,Integer ka){
+        memberQuery.setMemerType(ka);
+        Map<String, Object> userByParams = memberService.selectParams(memberQuery);
+        return userByParams;
+    }
     @RequestMapping("/list")
     @ResponseBody
+//    @RequiredPermission(code = "101001")
     public Map<String, Object> list(MemberQuery memberQuery,Integer ka){
         memberQuery.setMemerType(ka);
         Map<String, Object> userByParams = memberService.findUserByParams(memberQuery);
         return userByParams;
     }
+
 
     @RequestMapping("/addOrUpdateMemberPage")
     public String addOrUpdateMemberPage(Integer memberId, Model model){
@@ -64,11 +79,19 @@ public class MemberController extends BaseController {
         memberService.dropMembers(ids);
         return success("批量删除成功");
     }
+    @RequestMapping("/deletes")
+    @ResponseBody
+    public ResultInfo deletes(Integer[] ids){
+        System.out.println(ids);
+        memberService.dropOutMembers(ids);
+        return success("批量删除成功");
+    }
     @RequestMapping("/types")
     @ResponseBody
     public List<Map<String, Object>> findSales(){
         List<Map<String, Object>> list = memberService.queryTypes();
         return list;
     }
+
 
 }

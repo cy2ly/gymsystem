@@ -66,6 +66,7 @@ public class MemberService extends BaseService<Member, Integer> {
     }
 
     public void modifyMember(Member member) {
+        member.setIsValid(1);
         Member temp = memberMapper.selectByPrimaryKey(member.getMemberId());
         AssertUtil.isTrue(temp==null,"修改的会员信息不存在！");
         checkMember(member.getMemberName(),member.getMemberPhone(),member.getMemberAge(),member.getMemberType());
@@ -89,5 +90,27 @@ public class MemberService extends BaseService<Member, Integer> {
     public List<Map<String, Object>> queryTypes() {
         List<Map<String, Object>> list = memberMapper.selectTypes();
         return list;
+    }
+    /**
+     * 查询过期会员
+     * */
+    public Map<String, Object> selectParams(MemberQuery memberQuery) {
+        Map<String, Object> map = new HashMap<>();
+        PageHelper.startPage(memberQuery.getPage(), memberQuery.getLimit());
+        PageInfo<Member> pageInfo = new PageInfo<>(memberMapper.selectByParam(memberQuery));
+        map.put("code", 0);
+        map.put("msg", "success");
+        map.put("count", pageInfo.getTotal());
+        map.put("data", pageInfo.getList());
+        return map;
+    }
+    /**
+     * 删除过期会员信息
+     * @param ids
+     */
+    public void dropOutMembers(Integer[] ids) {
+        AssertUtil.isTrue(ids==null || ids.length==0,"请选择要删除的数据");
+        System.out.println(memberMapper.deleteBatchs(ids));
+        AssertUtil.isTrue(memberMapper.deleteBatchs(ids) < 1,"用户记录删除失败!");
     }
 }

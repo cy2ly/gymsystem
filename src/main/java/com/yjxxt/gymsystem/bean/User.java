@@ -16,6 +16,15 @@ public class User {
     private Date createDate;
 
     private Date updateDate;
+    private String roleIds;
+
+    public String getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
+    }
 
     public Integer getId() {
         return id;

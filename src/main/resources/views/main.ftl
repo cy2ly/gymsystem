@@ -49,38 +49,27 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll layui-left-menu">
                 <ul class="layui-nav layui-nav-tree layui-left-nav-tree layui-this" id="currency">
+<#--                    <#if permissions?seq_contains("10")>-->
                         <li class="layui-nav-item">
                             <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-street-view"></i><span class="layui-left-nav"> 会员管理</span> <span class="layui-nav-more"></span></a>
                             <dl class="layui-nav-child">
+<#--                                <#if permissions?seq_contains("1010")>-->
                                     <dd>
-                                      <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-1" data-tab="sale_chance/index" target="_self"><i class="fa fa-tty"></i><span class="layui-left-nav"> 会员列表</span></a>
+                                      <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-1" data-tab="member/index" target="_self"><i class="fa fa-tty"></i><span class="layui-left-nav"> 会员列表</span></a>
                                      </dd>
+<#--                                </#if>-->
+<#--                                <#if permissions?seq_contains("1020")>-->
                                     <dd>
-                                        <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-2" data-tab="cus_dev_plan/index" target="_self"><i class="fa fa-ellipsis-h"></i><span class="layui-left-nav"> 会员到期</span></a>
+                                        <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-2" data-tab="member/outdate" target="_self"><i class="fa fa-ellipsis-h"></i><span class="layui-left-nav"> 会员到期</span></a>
                                     </dd>
+<#--                                </#if>-->
                                     <dd>
-                                        <a href="javascript:;" class="layui-menu-tips">
-                                            <i class="fa fa-flag">
-                                            </i><span class="layui-left-nav"> 会员充值管理</span>
-                                            <span class="layui-nav-more"></span>
-                                        </a>
-                                        <dl class="layui-nav-child">
-                                            <dd>
-                                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-3" data-tab="customer/index" target="_self"><i class="fa fa-exchange"></i><span class="layui-left-nav"> 会员卡续卡</span></a>
-                                            </dd>
-                                            <dd>
-                                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-4" data-tab="customer_loss/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 会员卡余额充值</span></a>
-                                            </dd>
-                                            <dd>
-                                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-5" data-tab="customer_loss/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 续费续卡记录</span></a>
-                                            </dd>
-                                            <dd>
-                                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-6" data-tab="customer_loss/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 会员卡类型充值</span></a>
-                                            </dd>
-                                        </dl>
+                                        <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-2" data-tab="membertype/index" target="_self"><i class="fa fa-ellipsis-h"></i><span class="layui-left-nav"> 会员类型</span></a>
                                     </dd>
                             </dl>
                         </li>
+<#--                    </#if>-->
+<#--                    <#if permissions?seq_contains("30")>-->
                     <li class="layui-nav-item">
                             <a href="javascript:;" class="layui-menu-tips">
                                 <i class="fa fa-flag">
@@ -88,9 +77,11 @@
                                     <span class="layui-nav-more"></span>
                             </a>
                         <dl class="layui-nav-child">
+<#--                            <#if permissions?seq_contains("3010")>-->
                             <dd>
                                 <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-7" data-tab="coach/index" target="_self"><i class="fa fa-exchange"></i><span class="layui-left-nav"> 教练列表</span></a>
                             </dd>
+<#--                            </#if>-->
                             <#--<dd>
                                 <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-8" data-tab="course/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 会员私教课程列表</span></a>
                             </dd>
@@ -99,6 +90,7 @@
                             </dd>-->
                         </dl>
                     </li>
+<#--                    </#if>-->
                         <li class="layui-nav-item">
                             <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-desktop"></i><span class="layui-left-nav"> 课程管理</span> <span class="layui-nav-more"></span></a>
                             <dl class="layui-nav-child">
@@ -155,10 +147,21 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd>
-                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-14" data-tab="report/0" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 收入统计</span></a>
+                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-14" data-tab="membertype/analysis" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 收入统计</span></a>
                                 </dd>
                             </dl>
                         </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-gears"></i><span class="layui-left-nav"> 系统设置</span> <span class="layui-nav-more"></span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11" data-tab="user/index" target="_self"><i class="fa fa-user"></i><span class="layui-left-nav"> 用户管理</span></a>
+                            </dd>
+                            <dd class="">
+                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-12" data-tab="role/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 角色管理</span></a>
+                            </dd>
+                        </dl>
+                    </li>
                     <span class="layui-nav-bar" style="top: 201px; height: 0px; opacity: 0;"></span>
                 </ul>
         </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>营销机会管理</title>
+    <title>会员列表</title>
     <#include "../common.ftl">
 </head>
 <body class="childrenBody">
@@ -11,31 +11,15 @@
         <form class="layui-form">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="customerName"
-                           class="layui-input
-							searchVal" placeholder="客户名" />
+                    <input type="text" name="memberTypeName" class="layui-input
+					searchVal" placeholder="会员卡名字" />
                 </div>
-                <div class="layui-input-inline">
-                    <input type="text" name="createMan" class="layui-input
-							searchVal" placeholder="创建人" />
-                </div>
-                <div class="layui-input-inline">
-                    <select name="state"  id="state">
-                        <option value="" >分配状态</option>
-                        <option value="0">未分配</option>
-                        <option value="1" >已分配</option>
-                    </select>
-                </div>
-                <a class="layui-btn search_btn" data-type="reload">
-                    <i class="layui-icon">&#xe615;</i> 搜索
-                </a>
+                <a class="layui-btn search_btn" data-type="reload"><i class="layui-icon">&#xe615;</i> 搜索</a>
             </div>
         </form>
     </blockquote>
+    <table id="memberTypeList" class="layui-table"  lay-filter="memberType"></table>
 
-    <!-- 数据表格 -->
-    <table id="saleChanceList" class="layui-table"  lay-filter="saleChances">
-    </table>
 
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
@@ -58,7 +42,7 @@
     </script>
 
 </form>
+<script type="text/javascript" src="${ctx}/js/membertype/membertype.js"></script>
 
-<script type="text/javascript" src="${ctx}/js/saleChance/saleChance.js"></script>
 </body>
 </html>
