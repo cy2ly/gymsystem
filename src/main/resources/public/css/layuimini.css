@@ -2,7 +2,7 @@
 配色方案（如有需要，请自行配置）
  */
 /**头部-配色*/
-.layui-layout-admin .layui-header{background-color:#909baf!important;}
+.layui-layout-admin .layui-header{background-color:#9c9da0!important;}
 .layui-header>ul>.layui-nav-item.layui-this,.layuimini-tool i:hover{background-color:#FFFF00!important;}
 /**logo-配色*/
 .layui-layout-admin .layui-logo {background-color:#707070!important;}

@@ -53,12 +53,12 @@
                             <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-street-view"></i><span class="layui-left-nav"> 会员管理</span> <span class="layui-nav-more"></span></a>
                             <dl class="layui-nav-child">
                                     <dd>
-                                      <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-1" data-tab="sale_chance/index" target="_self"><i class="fa fa-tty"></i><span class="layui-left-nav"> 会员列表</span></a>
+                                      <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-1" data-tab="member/index" target="_self"><i class="fa fa-tty"></i><span class="layui-left-nav"> 会员列表</span></a>
                                      </dd>
                                     <dd>
                                         <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-2" data-tab="cus_dev_plan/index" target="_self"><i class="fa fa-ellipsis-h"></i><span class="layui-left-nav"> 会员到期</span></a>
                                     </dd>
-                                    <dd>
+                                   <#-- <dd>
                                         <a href="javascript:;" class="layui-menu-tips">
                                             <i class="fa fa-flag">
                                             </i><span class="layui-left-nav"> 会员充值管理</span>
@@ -78,7 +78,7 @@
                                                 <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-6" data-tab="customer_loss/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 会员卡类型充值</span></a>
                                             </dd>
                                         </dl>
-                                    </dd>
+                                    </dd>-->
                             </dl>
                         </li>
                     <li class="layui-nav-item">
@@ -103,7 +103,6 @@
                             <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-desktop"></i><span class="layui-left-nav"> 课程管理</span> <span class="layui-nav-more"></span></a>
                             <dl class="layui-nav-child">
                                     <dd>
-                                        <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="customer_serve/index/1" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 课程列表</span></a>
                                         <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="course/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 课程列表</span></a>
                                     </dd>
                             </dl>
@@ -116,7 +115,6 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd>
-                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="report/0" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 器材信息</span></a>
                                     <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="equipment/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 器材信息</span></a>
                                 </dd>
                             </dl>
