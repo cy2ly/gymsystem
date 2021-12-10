@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>课程管理</title>
+    <title>丢失物品管理</title>
     <#include "../common.ftl">
 </head>
 <body class="childrenBody">
@@ -11,13 +11,9 @@
         <form class="layui-form">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="courseName"
+                    <input type="text" name="loseName"
                            class="layui-input
-							searchVal" placeholder="课程名称" />
-                </div>
-                <div class="layui-input-inline">
-                    <input type="text" name="coachName" class="layui-input
-							searchVal" placeholder="教练" />
+							searchVal" placeholder="丢失物品名称" />
                 </div>
                 <a class="layui-btn search_btn" data-type="reload">
                     <i class="layui-icon">&#xe615;</i> 搜索
@@ -27,7 +23,7 @@
     </blockquote>
 
     <!-- 数据表格 -->
-    <table id="courseList" class="layui-table"  lay-filter="course">
+    <table id="loseList" class="layui-table"  lay-filter="lose">
     </table>
 
     <script type="text/html" id="toolbarDemo">
@@ -45,13 +41,12 @@
 
 
     <!--操作-->
-    <script id="courseListBar" type="text/html">
-        <a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">编辑</a>
+    <script id="loseListBar" type="text/html">
         <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
     </script>
 
 </form>
 
-<script type="text/javascript" src="${ctx}/js/course/course.js"></script>
+<script type="text/javascript" src="${ctx}/js/lose/lose.js"></script>
 </body>
 </html>
