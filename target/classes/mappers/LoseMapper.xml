@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yjxxt.gymsystem.mapper.LoseMapper" >
+  <resultMap id="BaseResultMap" type="com.yjxxt.gymsystem.bean.Lose" >
+    <id column="lose_Id" property="loseId" jdbcType="INTEGER" />
+    <result column="lose_Name" property="loseName" jdbcType="VARCHAR" />
+    <result column="lose_Images" property="loseImages" jdbcType="VARCHAR" />
+    <result column="lose_Address" property="loseAddress" jdbcType="VARCHAR" />
+    <result column="lose_jdate" property="loseJdate" jdbcType="TIMESTAMP" />
+    <result column="lose_Status" property="loseStatus" jdbcType="INTEGER" />
+    <result column="sc_avenger" property="scAvenger" jdbcType="VARCHAR" />
+    <result column="lose_ldate" property="loseLdate" jdbcType="TIMESTAMP" />
+    <result column="is_valid" property="isValid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lose_Id, lose_Name, lose_Images, lose_Address, lose_jdate, lose_Status, sc_avenger, 
+    lose_ldate, is_valid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_lose
+    where lose_Id = #{loseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_lose
+    where lose_Id = #{loseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yjxxt.gymsystem.bean.Lose" >
+    insert into t_lose (lose_Id, lose_Name, lose_Images, 
+      lose_Address, lose_jdate, lose_Status, 
+      sc_avenger, lose_ldate, is_valid
+      )
+    values (#{loseId,jdbcType=INTEGER}, #{loseName,jdbcType=VARCHAR}, #{loseImages,jdbcType=VARCHAR}, 
+      #{loseAddress,jdbcType=VARCHAR}, #{loseJdate,jdbcType=TIMESTAMP}, #{loseStatus,jdbcType=INTEGER}, 
+      #{scAvenger,jdbcType=VARCHAR}, #{loseLdate,jdbcType=TIMESTAMP}, #{isValid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yjxxt.gymsystem.bean.Lose" >
+    insert into t_lose
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loseId != null" >
+        lose_Id,
+      </if>
+      <if test="loseName != null" >
+        lose_Name,
+      </if>
+      <if test="loseImages != null" >
+        lose_Images,
+      </if>
+      <if test="loseAddress != null" >
+        lose_Address,
+      </if>
+      <if test="loseJdate != null" >
+        lose_jdate,
+      </if>
+      <if test="loseStatus != null" >
+        lose_Status,
+      </if>
+      <if test="scAvenger != null" >
+        sc_avenger,
+      </if>
+      <if test="loseLdate != null" >
+        lose_ldate,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loseId != null" >
+        #{loseId,jdbcType=INTEGER},
+      </if>
+      <if test="loseName != null" >
+        #{loseName,jdbcType=VARCHAR},
+      </if>
+      <if test="loseImages != null" >
+        #{loseImages,jdbcType=VARCHAR},
+      </if>
+      <if test="loseAddress != null" >
+        #{loseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="loseJdate != null" >
+        #{loseJdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loseStatus != null" >
+        #{loseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="scAvenger != null" >
+        #{scAvenger,jdbcType=VARCHAR},
+      </if>
+      <if test="loseLdate != null" >
+        #{loseLdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yjxxt.gymsystem.bean.Lose" >
+    update t_lose
+    <set >
+      <if test="loseName != null" >
+        lose_Name = #{loseName,jdbcType=VARCHAR},
+      </if>
+      <if test="loseImages != null" >
+        lose_Images = #{loseImages,jdbcType=VARCHAR},
+      </if>
+      <if test="loseAddress != null" >
+        lose_Address = #{loseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="loseJdate != null" >
+        lose_jdate = #{loseJdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loseStatus != null" >
+        lose_Status = #{loseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="scAvenger != null" >
+        sc_avenger = #{scAvenger,jdbcType=VARCHAR},
+      </if>
+      <if test="loseLdate != null" >
+        lose_ldate = #{loseLdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lose_Id = #{loseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yjxxt.gymsystem.bean.Lose" >
+    update t_lose
+    set lose_Name = #{loseName,jdbcType=VARCHAR},
+      lose_Images = #{loseImages,jdbcType=VARCHAR},
+      lose_Address = #{loseAddress,jdbcType=VARCHAR},
+      lose_jdate = #{loseJdate,jdbcType=TIMESTAMP},
+      lose_Status = #{loseStatus,jdbcType=INTEGER},
+      sc_avenger = #{scAvenger,jdbcType=VARCHAR},
+      lose_ldate = #{loseLdate,jdbcType=TIMESTAMP},
+      is_valid = #{isValid,jdbcType=INTEGER}
+    where lose_Id = #{loseId,jdbcType=INTEGER}
+  </update>
+  <select id="queryLoseByName" parameterType="com.yjxxt.gymsystem.mapper.LoseMapper">
+    select <include refid="Base_Column_List" /> from t_lose where lose_name = #{loseName}
+  </select>
+  <select id="selectByParams" parameterType="com.yjxxt.gymsystem.query.LoseQuery" resultType="com.yjxxt.gymsystem.bean.Lose">
+    select <include refid="Base_Column_List"/>
+    from t_lose
+    <where>
+      is_valid =1
+      <if test="null !=loseName and loseName !=''">
+        and lose_name =#{loseName}
+      </if>
+    </where>
+  </select>
+  <update id="deleteBatch">
+    update
+    t_lose
+    set is_valid = 0
+    where lose_Id in
+    <foreach collection="array" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </update>
+</mapper>

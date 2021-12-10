@@ -1,0 +1,1018 @@
+Index: src/main/java/com/yjxxt/gymsystem/query/MemberQuery.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/yjxxt/gymsystem/query/MemberQuery.java	(date 1638925932990)
++++ src/main/java/com/yjxxt/gymsystem/query/MemberQuery.java	(date 1638925932990)
+@@ -0,0 +1,40 @@
++package com.yjxxt.gymsystem.query;
++
++import com.yjxxt.gymsystem.base.BaseQuery;
++
++public class MemberQuery extends BaseQuery {
++    private String memberName;
++    private Integer memberType;
++
++    public MemberQuery() {
++    }
++
++    public MemberQuery(String memberName, Integer memerType) {
++        this.memberName = memberName;
++        this.memberType = memerType;
++    }
++
++    public String getMemberName() {
++        return memberName;
++    }
++
++    public void setMemberName(String memberName) {
++        this.memberName = memberName;
++    }
++
++    public Integer getMemberType() {
++        return memberType;
++    }
++
++    public void setMemerType(Integer memberType) {
++        this.memberType = memberType;
++    }
++
++    @Override
++    public String toString() {
++        return "MemberQuery{" +
++                "memberName='" + memberName + '\'' +
++                ", memerType=" + memberType +
++                '}';
++    }
++}
+Index: src/main/java/com/yjxxt/gymsystem/service/MemberService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/yjxxt/gymsystem/service/MemberService.java	(date 1638944982870)
++++ src/main/java/com/yjxxt/gymsystem/service/MemberService.java	(date 1638944982870)
+@@ -0,0 +1,93 @@
++package com.yjxxt.gymsystem.service;
++
++import com.github.pagehelper.PageHelper;
++import com.github.pagehelper.PageInfo;
++import com.yjxxt.gymsystem.base.BaseService;
++import com.yjxxt.gymsystem.bean.Member;
++import com.yjxxt.gymsystem.mapper.MemberMapper;
++import com.yjxxt.gymsystem.query.MemberQuery;
++import com.yjxxt.gymsystem.utils.AssertUtil;
++import com.yjxxt.gymsystem.utils.PhoneUtil;
++import org.apache.commons.lang3.StringUtils;
++import org.springframework.stereotype.Service;
++import org.springframework.transaction.annotation.Transactional;
++
++import javax.annotation.Resource;
++import java.util.*;
++
++@Service
++public class MemberService extends BaseService<Member, Integer> {
++    @Resource
++    private MemberMapper memberMapper;
++
++    public Map<String, Object> findUserByParams(MemberQuery memberQuery) {
++        Map<String, Object> map = new HashMap<>();
++        PageHelper.startPage(memberQuery.getPage(), memberQuery.getLimit());
++        PageInfo<Member> pageInfo = new PageInfo<>(memberMapper.selectByParams(memberQuery));
++        map.put("code", 0);
++        map.put("msg", "success");
++        map.put("count", pageInfo.getTotal());
++        map.put("data", pageInfo.getList());
++        return map;
++    }
++
++    /**
++     * 添加新的用户
++     */
++    @Transactional
++    public void addMember(Member member) {
++        System.out.println(member);
++        checkMember(member.getMemberName(), member.getMemberPhone(), member.getMemberAge(), member.getMemberType());
++        member.setIsValid(1);
++        member.setCreateDate(new Date());
++        Calendar instance = Calendar.getInstance();
++        if (member.getMemberType()==1){
++            instance.add(Calendar.DATE,30);
++        }else if (member.getMemberType()==2){
++            instance.add(Calendar.DATE,180);
++        }else if (member.getMemberType()==3){
++            instance.add(Calendar.DATE,365);
++        }else if (member.getMemberType()==4){
++            instance.add(Calendar.DATE,3650);
++        }
++        member.setMemberRenew(instance.getTime());
++        AssertUtil.isTrue(memberMapper.insertSelective(member)<1,"添加会员失败");
++    }
++
++    /**
++     * 检测
++     */
++    public void checkMember(String memberName, String phone, Integer age, Integer type) {
++        AssertUtil.isTrue(StringUtils.isBlank(memberName), "请输入会员名称");
++        AssertUtil.isTrue(!PhoneUtil.isMobile(phone), "请输入正确是手机号");
++        AssertUtil.isTrue(age < 0 || age > 100, "请输入正确的年龄");
++        AssertUtil.isTrue(type == null, "会员卡类型不正确");
++    }
++
++    public void modifyMember(Member member) {
++        Member temp = memberMapper.selectByPrimaryKey(member.getMemberId());
++        AssertUtil.isTrue(temp==null,"修改的会员信息不存在！");
++        checkMember(member.getMemberName(),member.getMemberPhone(),member.getMemberAge(),member.getMemberType());
++        AssertUtil.isTrue( memberMapper.updateByPrimaryKeySelective(member)<1,"会员信息更新失败！");
++    }
++
++    /**
++     * 删除用户信息
++     * @param ids
++     */
++    public void dropMembers(Integer[] ids) {
++        //验证
++        AssertUtil.isTrue(ids==null || ids.length==0,"请选择要删除的数据");
++        //删除是否成功
++        AssertUtil.isTrue(deleteBatch(ids)!=ids.length,"批量删除失败了");
++    }
++
++    /**
++     * 会员卡类型
++     * @return
++     */
++    public List<Map<String, Object>> queryTypes() {
++        List<Map<String, Object>> list = memberMapper.selectTypes();
++        return list;
++    }
++}
+Index: src/main/resources/generatorConfig.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<!DOCTYPE generatorConfiguration\r\n        PUBLIC \"-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd\">\r\n\r\n<generatorConfiguration>\r\n\r\n    <!-- 数据库驱动路径：在左侧project边栏的External Libraries中找到mysql的驱动，右键选择copy path -->\r\n    <classPathEntry\r\n            location=\"E:\\apache-maven-3.6.2\\myRep\\mysql\\mysql-connector-java\\8.0.18\\mysql-connector-java-8.0.18.jar\"/>\r\n\r\n    <!-- context 是逆向工程的主要配置信息，id：起个名字，targetRuntime：设置生成的文件适用于哪个mybatis版本 -->\r\n    <context id=\"DB2Tables\" targetRuntime=\"MyBatis3\">\r\n\r\n        <!--optional,指在创建class时，对注释进行控制-->\r\n        <commentGenerator>\r\n            <!-- 是否去除日期那行注释 -->\r\n            <property name=\"suppressDate\" value=\"true\"/>\r\n            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->\r\n            <property name=\"suppressAllComments\" value=\"true\"/>\r\n        </commentGenerator>\r\n\r\n        <!-- 数据库链接地址账号密码 -->\r\n        <jdbcConnection\r\n                driverClass=\"com.mysql.cj.jdbc.Driver\"\r\n                connectionURL=\"jdbc:mysql://localhost:3306/gym?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai\"\r\n                userId=\"root\"\r\n                password=\"123456\">\r\n            <property name=\"nullCatalogMeansCurrent\" value=\"true\"/>\r\n        </jdbcConnection>\r\n\r\n        <!--\r\n             java类型处理器\r\n                用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；\r\n                注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和NUMERIC数据类型；\r\n                true：使用 BigDecimal对应DECIMAL和NUMERIC数据类型\r\n                false：默认，把JDBC DECIMAL和NUMERIC类型解析为Integer\r\n        -->\r\n        <javaTypeResolver>\r\n            <property name=\"forceBigDecimals\" value=\"false\"/>\r\n        </javaTypeResolver>\r\n\r\n\r\n\r\n        <!-- 生成Model类存放位置 -->\r\n        <javaModelGenerator targetPackage=\"com.yjxxt.gymsystem.bean\" targetProject=\"src/main/java\">\r\n            <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，生成的类放在这个package下，默认为false -->\r\n            <property name=\"enableSubPackages\" value=\"true\"/>\r\n            <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->\r\n            <property name=\"trimStrings\" value=\"true\"/>\r\n        </javaModelGenerator>\r\n\r\n\r\n        <!--生成映射文件存放位置-->\r\n        <sqlMapGenerator targetPackage=\"mappers\" targetProject=\"src/main/resources\">\r\n            <property name=\"enableSubPackages\" value=\"true\"/>\r\n        </sqlMapGenerator>\r\n\r\n\r\n        <!--生成Dao类存放位置-->\r\n        <javaClientGenerator type=\"XMLMAPPER\" targetPackage=\"com.yjxxt.gymsystem.mapper\" targetProject=\"src/main/java\">\r\n            <property name=\"enableSubPackages\" value=\"true\"/>\r\n        </javaClientGenerator>\r\n\r\n\r\n        <!-- 数据库的表名与对应的实体类的名称，tableName是数据库中的表名，domainObjectName是生成的JAVA模型名 -->\r\n        <table tableName=\"t_permission\" domainObjectName=\"Permission\"\r\n               enableCountByExample=\"false\" enableUpdateByExample=\"false\"\r\n               enableDeleteByExample=\"false\" enableSelectByExample=\"false\" selectByExampleQueryId=\"false\">\r\n        </table>\r\n\r\n    </context>\r\n</generatorConfiguration>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/generatorConfig.xml	(revision 70756e08a8c2c41ba13e2a06b43c26dbd799b30a)
++++ src/main/resources/generatorConfig.xml	(date 1638929598334)
+@@ -7,7 +7,7 @@
+ 
+     <!-- 数据库驱动路径：在左侧project边栏的External Libraries中找到mysql的驱动，右键选择copy path -->
+     <classPathEntry
+-            location="E:\apache-maven-3.6.2\myRep\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar"/>
++            location="E:\apache-maven-3.6.3\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar"/>
+ 
+     <!-- context 是逆向工程的主要配置信息，id：起个名字，targetRuntime：设置生成的文件适用于哪个mybatis版本 -->
+     <context id="DB2Tables" targetRuntime="MyBatis3">
+@@ -64,7 +64,7 @@
+ 
+ 
+         <!-- 数据库的表名与对应的实体类的名称，tableName是数据库中的表名，domainObjectName是生成的JAVA模型名 -->
+-        <table tableName="t_permission" domainObjectName="Permission"
++        <table tableName="t_membertype" domainObjectName="MemberType"
+                enableCountByExample="false" enableUpdateByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+         </table>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 70756e08a8c2c41ba13e2a06b43c26dbd799b30a)
++++ .idea/misc.xml	(date 1638878906040)
+@@ -7,6 +7,9 @@
+       </list>
+     </option>
+   </component>
++  <component name="ProjectResources">
++    <resource url="http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" location="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" />
++  </component>
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+Index: src/main/resources/public/js/member/add.update.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/public/js/member/add.update.js	(date 1638935931219)
++++ src/main/resources/public/js/member/add.update.js	(date 1638935931219)
+@@ -0,0 +1,59 @@
++layui.use(['form', 'layer'], function () {
++    var form = layui.form,
++        layer = parent.layer === undefined ? layui.layer : top.layer,
++        $ = layui.jquery;
++
++    $("#quxiao").click(function (){
++        var index = parent.layer.getFrameIndex(window.name);
++        window.parent.layer.close(index);
++    })
++
++    form.on('submit(addOrUpdateMember)', function (obj) {
++
++        var index = layer.msg("数据正在提交中，请稍等！",{time:false,shade:0.8,icon:16});
++
++        var url = ctx + "/member/save"
++        //判断是添加还是修改
++        if ($("input[name='memberId']").val()) {
++            url = ctx + "/member/update"
++        }
++        //$.ajax,$.post();
++        $.post(url,obj.field,function(result){
++            if(result.code==200){
++                setTimeout(function(){
++                    //关闭
++                    top.layer.close(index);
++                    //提示一下
++                    top.layer.msg("添加OK",{icon: 6 });
++                    //关闭iframe
++                    top.layer.closeAll("iframe");
++                    //刷新
++                    parent.location.reload();
++                },500)
++            }else{
++                layer.msg(result.msg,{icon : 5 });
++            }
++        },"json");
++        //取消跳转
++        return false;
++    });
++
++    var memberType = $("input[name='memberType']").val();
++    //添加下拉框
++    $.ajax({
++        type:"post",
++        url:ctx+"/member/types",
++        dataType:"json",
++        success:function (data){
++            for (var x in data){
++                if (memberType == data[x].typeId){
++                    $("#memberType").append("<option selected value="+data[x].typeId+">"+data[x].typeName+'</option>');
++                }else {
++                    $("#memberType").append("<option value="+data[x].typeId+">"+data[x].typeName+'</option>');
++                }
++            }
++            //渲染下拉框
++            layui.form.render("select");
++        }
++    })
++});
+\ No newline at end of file
+Index: src/main/resources/views/membertype/membertype.ftl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/views/membertype/membertype.ftl	(date 1632401271866)
++++ src/main/resources/views/membertype/membertype.ftl	(date 1632401271866)
+@@ -0,0 +1,48 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <title>会员列表</title>
++    <#include "../common.ftl">
++</head>
++<body class="childrenBody">
++
++<form class="layui-form" >
++    <blockquote class="layui-elem-quote quoteBox">
++        <form class="layui-form">
++            <div class="layui-inline">
++                <div class="layui-input-inline">
++                    <input type="text" name="memberTypeName" class="layui-input
++					searchVal" placeholder="会员卡名字" />
++                </div>
++                <a class="layui-btn search_btn" data-type="reload"><i class="layui-icon">&#xe615;</i> 搜索</a>
++            </div>
++        </form>
++    </blockquote>
++    <table id="memberTypeList" class="layui-table"  lay-filter="memberType"></table>
++
++
++    <script type="text/html" id="toolbarDemo">
++        <div class="layui-btn-container">
++            <a class="layui-btn layui-btn-normal addNews_btn" lay-event="add">
++                <i class="layui-icon">&#xe608;</i>
++                添加
++            </a>
++            <a class="layui-btn layui-btn-normal delNews_btn" lay-event="del">
++                <i class="layui-icon">&#xe608;</i>
++                删除
++            </a>
++        </div>
++    </script>
++
++
++    <!--操作-->
++    <script id="saleChanceListBar" type="text/html">
++        <a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">编辑</a>
++        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
++    </script>
++
++</form>
++<script type="text/javascript" src="${ctx}/js/membertype/membertype.js"></script>
++
++</body>
++</html>
+\ No newline at end of file
+Index: src/main/resources/views/membertype/add_update.ftl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/views/membertype/add_update.ftl	(date 1632403196509)
++++ src/main/resources/views/membertype/add_update.ftl	(date 1632403196509)
+@@ -0,0 +1,47 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <#include "../common.ftl">
++</head>
++<body class="childrenBody">
++<form class="layui-form" style="width:80%;">
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <input type="hidden" name="typeId" value="${(memberType.typeId)!}">
++        <#-- 会员卡类型  -->
++        <label class="layui-form-label">会员卡名称</label>
++        <div class="layui-input-block">
++            <input type="text" class="layui-input" lay-verify="required" name="typeName" id="typeName"
++                   value="${(memberType.typeName)!}" placeholder="请会员卡名称">
++        </div>
++    </div>
++
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <label class="layui-form-label">时长</label>
++        <div class="layui-input-block">
++            <input type="text" class="layui-input" name="typeDay" id="typeDay"
++                   value="${(memberType.typeDay)!}" placeholder="时长">
++        </div>
++    </div>
++
++
++
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <label class="layui-form-label">会员价格</label>
++        <div class="layui-input-block">
++            <input type="text" class="layui-input" name="typeMoney" lay-verify="required" value="${(memberType.typeMoney)!}"
++                   placeholder="请输入会员价格">
++        </div>
++    </div>
++
++
++    <br/>
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <div class="layui-input-block">
++            <button class="layui-btn layui-btn-lg" lay-submit="" lay-filter="addOrUpdateMemberType">确认</button>
++            <button class="layui-btn layui-btn-lg layui-btn-normal" id="quxiao">取消</button>
++        </div>
++    </div>
++</form>
++<script type="text/javascript" src="${ctx}/js/membertype/add.update.js"></script>
++</body>
++</html>
+\ No newline at end of file
+Index: src/main/resources/views/member/member.ftl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/views/member/member.ftl	(date 1638946517023)
++++ src/main/resources/views/member/member.ftl	(date 1638946517023)
+@@ -0,0 +1,55 @@
++<!DOCTYPE html>
++<html>
++<head>
++	<title>会员列表</title>
++	<#include "../common.ftl">
++</head>
++<body class="childrenBody">
++
++<form class="layui-form" >
++	<blockquote class="layui-elem-quote quoteBox">
++		<form class="layui-form">
++			<div class="layui-inline">
++				<div class="layui-input-inline">
++					<input type="text" name="memberName" class="layui-input
++					searchVal" placeholder="会员名" />
++				</div>
++				<div class="layui-input-inline">
++					<select name="memberType"  id="memberType">
++						<option value="">会员类型</option>
++						<option value="1">白银会员</option>
++						<option value="2">黄金会员</option>
++						<option value="3">钻石会员</option>
++						<option value="4">至尊会员</option>
++					</select>
++				</div>
++				<a class="layui-btn search_btn" data-type="reload"><i class="layui-icon">&#xe615;</i> 搜索</a>
++			</div>
++		</form>
++	</blockquote>
++	<table id="memberList" class="layui-table"  lay-filter="members"></table>
++
++
++	<script type="text/html" id="toolbarDemo">
++		<div class="layui-btn-container">
++			<a class="layui-btn layui-btn-normal addNews_btn" lay-event="add">
++				<i class="layui-icon">&#xe608;</i>添加
++			</a>
++			<a class="layui-btn layui-btn-normal delNews_btn" lay-event="del"><i class="layui-icon">&#xe608;</i>
++				删除
++			</a>
++		</div>
++	</script>
++
++
++	<!--操作-->
++	<script id="memberListBar" type="text/html">
++		<a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">编辑</a>
++		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">退卡</a>
++	</script>
++
++</form>
++<script type="text/javascript" src="${ctx}/js/member/member.js"></script>
++
++</body>
++</html>
+\ No newline at end of file
+Index: src/main/resources/views/member/add_update.ftl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/views/member/add_update.ftl	(date 1638935196526)
++++ src/main/resources/views/member/add_update.ftl	(date 1638935196526)
+@@ -0,0 +1,78 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <#include "../common.ftl">
++</head>
++<body class="childrenBody">
++<form class="layui-form" style="width:80%;">
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <input type="hidden" name="memberId" value="${(member.memberId)!}">
++        <#-- 会员卡类型  -->
++        <input type="hidden" name="memberType" value="${(member.memberType)!}">
++        <label class="layui-form-label">会员名称</label>
++        <div class="layui-input-block">
++            <input type="text" class="layui-input" lay-verify="required" name="memberName" id="memberName"
++                   value="${(member.memberName)!}" placeholder="请会员客户名称">
++        </div>
++    </div>
++
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <label class="layui-form-label">会员电话</label>
++        <div class="layui-input-block">
++            <input type="text" class="layui-input" name="memberPhone" id="memberPhone"
++                   value="${(member.memberPhone)!}" placeholder="会员电话">
++        </div>
++    </div>
++
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <label class="layui-form-label">会员性别</label>
++            <div class="layui-input-block">
++                    <select name="memberSex" id="memberSex">
++                        <option value="">请选择</option>
++                        <option value="1" <#if (member.memberSex)??><#if member.memberSex==1 >selected="selected"</#if></#if>>男</option>
++                        <option value="0" <#if (member.memberSex)??><#if member.memberSex==0 >selected="selected"</#if></#if>>女</option>
++                    </select>
++        </div>
++    </div>
++
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <label class="layui-form-label">会员年龄</label>
++        <div class="layui-input-block">
++            <input type="text" class="layui-input" name="memberAge" lay-verify="required" value="${(member.memberAge)!}"
++                   placeholder="请输入会员年龄">
++        </div>
++    </div>
++
++
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <label class="layui-form-label">会员卡类型</label>
++        <div class="layui-input-block">
++                <select name="memberType" id="memberType">
++                    <option value="">请选择</option>
++<#--                    <option value="1" <#if (member.memberType)??><#if member.memberType==1> selected="selected" </#if></#if>>白银会员</option>-->
++<#--                    <option value="2" <#if (member.memberType)??><#if member.memberType==2> selected="selected" </#if></#if>>月卡</option>-->
++<#--                    <option value="3" <#if (member.memberType)??><#if member.memberType==3> selected="selected" </#if></#if>>年卡</option>-->
++<#--                    <option value="4" <#if (member.memberType)??><#if member.memberType==4> selected="selected" </#if></#if>>周卡</option>-->
++                </select>
++        </div>
++    </div>
++
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <label class="layui-form-label">会员生日</label>
++        <div class="layui-input-block">
++            <input type="date"  class="layui-input" name="memberBirthday"
++                   placeholder="请输入会员生日">
++        </div>
++    </div>
++
++    <br/>
++    <div class="layui-form-item layui-row layui-col-xs12">
++        <div class="layui-input-block">
++            <button class="layui-btn layui-btn-lg" lay-submit="" lay-filter="addOrUpdateMember">确认</button>
++            <button class="layui-btn layui-btn-lg layui-btn-normal" id="quxiao">取消</button>
++        </div>
++    </div>
++</form>
++<script type="text/javascript" src="${ctx}/js/member/add.update.js"></script>
++</body>
++</html>
+\ No newline at end of file
+Index: src/main/resources/public/js/membertype/membertype.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/public/js/membertype/membertype.js	(date 1638924868955)
++++ src/main/resources/public/js/membertype/membertype.js	(date 1638924868955)
+@@ -0,0 +1,151 @@
++layui.use(['table', 'layer'], function () {
++    var layer = parent.layer === undefined ? layui.layer : top.layer,
++        $ = layui.jquery,
++        table = layui.table;
++    /**
++     * 营销机会列表展示
++     */
++    var tableIns = table.render({
++        elem: '#memberTypeList', // 表格绑定的ID
++        url: ctx + '/membertype/list', // 访问数据的地址
++        cellMinWidth: 95,
++        page: true, // 开启分页
++        height: "full-125",
++        limits: [10, 15, 20, 25],
++        limit: 10,
++        toolbar: "#toolbarDemo",
++        id: "memberTypeTable",
++        cols: [[
++            {type: "checkbox", fixed: "center"},
++            {field: "typeId", title: '会员卡编号', fixed: "true"},
++            {field: 'typeName', title: '会员卡名字', align: "center"},
++            {field: 'typeDay', title: '会员持续时间(天)', align: 'center'},
++            {field: 'typeMoney', title: '会员价格（元）', align: 'center'},
++            {title: '操作', templet: '#memberListBar', fixed: "right", align: "center", minWidth: 150}
++        ]]
++    });
++
++    //实现搜索功能 实现表格内容的重载
++    //只重装数据
++    $(".search_btn").click(function () {
++        tableIns.reload({
++            where: {
++                //设定异步数据接口的额外参数，任意设
++                memberTypeName: $("input[name='memberTypeName']").val(),
++            }
++            , page: {
++                curr: 1 //重新从第 1 页开始
++            }
++        });
++    })
++
++    //绑定头部工具栏
++    table.on('toolbar(memberType)', function (obj) {
++        var checkStatus = table.checkStatus(obj.config.id);
++        switch (obj.event) {
++            case 'add':
++                openAddOrUpdateMemberTypeDialog();
++                break;
++            case 'del':
++                deleteMemberType(checkStatus.data);
++                break;
++        };
++    });
++
++
++    function openAddOrUpdateMemberTypeDialog(typeId) {
++        var title = "<h2>会员卡管理 - 会员卡添加</h2>";
++        var url = ctx + "/membertype/addOrUpdateMemberPage";
++
++        //判断传id
++        if (typeId) {
++            url = url + "?typeId=" + typeId;
++        }
++
++        layui.layer.open({
++            title: title,
++            type: 2, //iframe
++            content: url,
++            area: ["500px", "300px"],
++            maxmin: true
++        });
++    }
++
++    function deleteMemberType(data) {
++        if (data.length == 0) {
++            layer.msg("请选择数据");
++            return;
++        }
++        //询问是否要真的删除数据
++        layer.confirm("你确定要真的删除数据吗？", {
++            btn: ['确认', '取消'],
++        }, function (index) {
++            //关闭询问框
++            layer.close(index);
++            //收集数据 发送ajax请求
++            //收集数据
++            var ids = [];
++            //遍历
++            for (var x in data) {
++                ids.push(data[x].typeId);
++            }
++
++            console.log(ids.toString())
++            //发送ajax 进行删除
++            $.ajax({
++                type: "post",
++                url: ctx + "/membertype/dels",
++                data: {ids: ids.toString()},
++                dataType: "json",
++                success: function (result) {
++                    if (result.code == 200) {
++                        layer.msg("删除成功！");
++                        //页面重载
++                        tableIns.reload();
++                    } else {
++                        layer.msg("删除失败！");
++                    }
++                },
++            });
++        });
++
++    }
++
++    //绑定行内工具栏
++    table.on('tool(memberType)', function (obj) {
++        //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
++        var data = obj.data; //获得当前行数据
++        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
++        var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
++        console.log(obj.data)
++        if (layEvent === 'edit') { //查看
++            openAddOrUpdateMemberTypeDialog(data.typeId)
++        } else if (layEvent === 'del') { //删除
++            layer.confirm('真的删除行么', function (index) {
++                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
++                layer.close(index);
++                //收集数据
++                var ids = [];
++                ids.push(obj.data.typeId);
++                //发送ajax 进行删除
++                $.ajax({
++                    type: "post",
++                    url: ctx + "/membertype/dels",
++                    data: {'ids': ids.toString()},
++                    dataType: "json",
++                    success: function (result) {
++                        if (result.code == 200) {
++                            layer.msg("删除成功！");
++                            //页面重载
++                            tableIns.reload();
++                        } else {
++                            layer.msg("删除失败！");
++                        }
++                    },
++                })
++            });
++        }
++    });
++
++
++});
+Index: src/main/resources/views/main.ftl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta charset=\"utf-8\">\r\n    <title>健身房管理系统</title>\r\n    <#include \"common.ftl\">\r\n</head>\r\n<body class=\"layui-layout-body layuimini-all\">\r\n<div class=\"layui-layout layui-layout-admin\">\r\n    <div class=\"layui-header header\">\r\n        <div class=\"layui-logo\">\r\n            <a href=\"\">\r\n                <img src=\"images/2.jpg\" alt=\"logo\">\r\n                <h1>健身房管理</h1>\r\n            </a>\r\n        </div>\r\n        <a>\r\n            <div class=\"layuimini-tool\"><i title=\"展开\" class=\"fa fa-outdent\" data-side-fold=\"1\"></i></div>\r\n        </a>\r\n        <div id=\"space\">\r\n            <a href=\"#\">\r\n                <marquee id=\"right\" crollamount=\"5\">特别公告:本系统为测试版，有问题请联系我们工作人员，电话:147147141748</marquee>\r\n            </a>\r\n        </div>\r\n        <ul class=\"layui-nav layui-layout-right\">\r\n            <li class=\"layui-nav-item mobile layui-hide-xs\" lay-unselect>\r\n                <a href=\"javascript:;\" data-check-screen=\"full\"><i class=\"fa fa-arrows-alt\"></i></a>\r\n            </li>\r\n            <li class=\"layui-nav-item layuimini-setting\">\r\n                <a href=\"javascript:;\">${(user.userName) !\"\"}</a>\r\n                <dl class=\"layui-nav-child\">\r\n                    <dd>\r\n                        <a href=\"javascript:;\" data-iframe-tab=\"${ctx}/user/toSettingPage\" data-title=\"基本资料\" data-icon=\"fa fa-gears\">基本资料</a>\r\n                    </dd>\r\n                    <dd>\r\n                        <a href=\"javascript:;\" data-iframe-tab=\"${ctx}/user/toPasswordPage\" data-title=\"修改密码\" data-icon=\"fa fa-gears\">修改密码</a>\r\n                    </dd>\r\n                    <dd>\r\n                        <a href=\"javascript:;\" class=\"login-out\">退出登录</a>\r\n                    </dd>\r\n                </dl>\r\n            </li>\r\n            <li class=\"layui-nav-item layuimini-select-bgcolor mobile layui-hide-xs\" lay-unselect>\r\n                <a href=\"javascript:;\"></a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"layui-side layui-bg-black\">\r\n        <div class=\"layui-side-scroll layui-left-menu\">\r\n                <ul class=\"layui-nav layui-nav-tree layui-left-nav-tree layui-this\" id=\"currency\">\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\"><i class=\"fa fa-street-view\"></i><span class=\"layui-left-nav\"> 会员管理</span> <span class=\"layui-nav-more\"></span></a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                    <dd>\r\n                                      <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-1\" data-tab=\"sale_chance/index\" target=\"_self\"><i class=\"fa fa-tty\"></i><span class=\"layui-left-nav\"> 会员列表</span></a>\r\n                                     </dd>\r\n                                    <dd>\r\n                                        <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-2\" data-tab=\"cus_dev_plan/index\" target=\"_self\"><i class=\"fa fa-ellipsis-h\"></i><span class=\"layui-left-nav\"> 会员到期</span></a>\r\n                                    </dd>\r\n                                    <dd>\r\n                                        <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                            <i class=\"fa fa-flag\">\r\n                                            </i><span class=\"layui-left-nav\"> 会员充值管理</span>\r\n                                            <span class=\"layui-nav-more\"></span>\r\n                                        </a>\r\n                                        <dl class=\"layui-nav-child\">\r\n                                            <dd>\r\n                                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-3\" data-tab=\"customer/index\" target=\"_self\"><i class=\"fa fa-exchange\"></i><span class=\"layui-left-nav\"> 会员卡续卡</span></a>\r\n                                            </dd>\r\n                                            <dd>\r\n                                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-4\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 会员卡余额充值</span></a>\r\n                                            </dd>\r\n                                            <dd>\r\n                                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-5\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 续费续卡记录</span></a>\r\n                                            </dd>\r\n                                            <dd>\r\n                                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-6\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 会员卡类型充值</span></a>\r\n                                            </dd>\r\n                                        </dl>\r\n                                    </dd>\r\n                            </dl>\r\n                        </li>\r\n                    <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-flag\">\r\n                                </i><span class=\"layui-left-nav\"> 教练管理</span>\r\n                                    <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                        <dl class=\"layui-nav-child\">\r\n                            <dd>\r\n                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-7\" data-tab=\"customer/index\" target=\"_self\"><i class=\"fa fa-exchange\"></i><span class=\"layui-left-nav\"> 教练列表</span></a>\r\n                            </dd>\r\n                            <dd>\r\n                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-8\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 会员私教课程列表</span></a>\r\n                            </dd>\r\n                            <dd>\r\n                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-9\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 会员私教详情</span></a>\r\n                            </dd>\r\n                        </dl>\r\n                    </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\"><i class=\"fa fa-desktop\"></i><span class=\"layui-left-nav\"> 课程管理</span> <span class=\"layui-nav-more\"></span></a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                    <dd>\r\n                                        <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-10\" data-tab=\"customer_serve/index/1\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 课程列表</span></a>\r\n                                    </dd>\r\n                            </dl>\r\n                        </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-home\"></i>\r\n                                <span class=\"layui-left-nav\"> 器材管理</span>\r\n                                <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-10\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 器材信息</span></a>\r\n                                </dd>\r\n                            </dl>\r\n                        </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-home\"></i>\r\n                                <span class=\"layui-left-nav\"> 物品遗失</span>\r\n                                <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-11\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 物品归还</span></a>\r\n                                </dd>\r\n                            </dl>\r\n                        </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-home\"></i>\r\n                                <span class=\"layui-left-nav\"> 商品管理</span>\r\n                                <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-12\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 商品列表</span></a>\r\n                                </dd>\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-13\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 商品售卖信息</span></a>\r\n                                </dd>\r\n                            </dl>\r\n                        </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-home\"></i>\r\n                                <span class=\"layui-left-nav\"> 统计信息</span>\r\n                                <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-14\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 收入统计</span></a>\r\n                                </dd>\r\n                            </dl>\r\n                        </li>\r\n                    <span class=\"layui-nav-bar\" style=\"top: 201px; height: 0px; opacity: 0;\"></span>\r\n                </ul>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"layui-body\">\r\n        <div class=\"layui-tab\" lay-filter=\"layuiminiTab\" id=\"top_tabs_box\">\r\n            <ul class=\"layui-tab-title\" id=\"top_tabs\">\r\n                <li class=\"layui-this\" id=\"layuiminiHomeTabId\" lay-id=\"welcome\"><i class=\"fa fa-home\"></i> <span>首页</span></li>\r\n            </ul>\r\n\r\n            <ul class=\"layui-nav closeBox\">\r\n                <li class=\"layui-nav-item\">\r\n                    <a href=\"javascript:;\"> <i class=\"fa fa-dot-circle-o\"></i> 页面操作</a>\r\n                    <dl class=\"layui-nav-child\">\r\n                        <dd><a href=\"javascript:;\" data-page-close=\"other\"><i class=\"fa fa-window-close\"></i> 关闭其他</a></dd>\r\n                        <dd><a href=\"javascript:;\" data-page-close=\"all\"><i class=\"fa fa-window-close-o\"></i> 关闭全部</a></dd>\r\n                    </dl>\r\n                </li>\r\n            </ul>\r\n            <div class=\"layui-tab-content clildFrame\">\r\n                <div id=\"layuiminiHomeTabIframe\" class=\"layui-tab-item layui-show\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n<script type=\"text/javascript\" src=\"${ctx}/js/main.js\"></script>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/views/main.ftl	(revision 70756e08a8c2c41ba13e2a06b43c26dbd799b30a)
++++ src/main/resources/views/main.ftl	(date 1638881218690)
+@@ -53,10 +53,10 @@
+                             <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-street-view"></i><span class="layui-left-nav"> 会员管理</span> <span class="layui-nav-more"></span></a>
+                             <dl class="layui-nav-child">
+                                     <dd>
+-                                      <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-1" data-tab="sale_chance/index" target="_self"><i class="fa fa-tty"></i><span class="layui-left-nav"> 会员列表</span></a>
++                                      <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-1" data-tab="member/index" target="_self"><i class="fa fa-tty"></i><span class="layui-left-nav"> 会员列表</span></a>
+                                      </dd>
+                                     <dd>
+-                                        <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-2" data-tab="cus_dev_plan/index" target="_self"><i class="fa fa-ellipsis-h"></i><span class="layui-left-nav"> 会员到期</span></a>
++                                        <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-2" data-tab="member/outdate" target="_self"><i class="fa fa-ellipsis-h"></i><span class="layui-left-nav"> 会员到期</span></a>
+                                     </dd>
+                                     <dd>
+                                         <a href="javascript:;" class="layui-menu-tips">
+@@ -66,7 +66,7 @@
+                                         </a>
+                                         <dl class="layui-nav-child">
+                                             <dd>
+-                                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-3" data-tab="customer/index" target="_self"><i class="fa fa-exchange"></i><span class="layui-left-nav"> 会员卡续卡</span></a>
++                                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-3" data-tab="member/index" target="_self"><i class="fa fa-exchange"></i><span class="layui-left-nav"> 会员卡续卡</span></a>
+                                             </dd>
+                                             <dd>
+                                                 <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-4" data-tab="customer_loss/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 会员卡余额充值</span></a>
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"dataSourceStorageLocal\" created-in=\"IU-211.7142.45\">\r\n    <data-source name=\"gym@localhost\" uuid=\"ee2474b2-5bb3-4860-abfd-2fe482e7218c\">\r\n      <database-info product=\"MySQL\" version=\"8.0.18\" jdbc-version=\"4.2\" driver-name=\"MySQL Connector/J\" driver-version=\"mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)\" dbms=\"MYSQL\" exact-version=\"8.0.18\" exact-driver-version=\"8.0\">\r\n        <extra-name-characters>#@</extra-name-characters>\r\n        <identifier-quote-string>`</identifier-quote-string>\r\n      </database-info>\r\n      <case-sensitivity plain-identifiers=\"lower\" quoted-identifiers=\"lower\" />\r\n      <secret-storage>master_key</secret-storage>\r\n      <user-name>root</user-name>\r\n      <schema-mapping>\r\n        <introspection-scope>\r\n          <node kind=\"schema\" qname=\"@\" />\r\n        </introspection-scope>\r\n      </schema-mapping>\r\n    </data-source>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/dataSources.local.xml	(revision 70756e08a8c2c41ba13e2a06b43c26dbd799b30a)
++++ .idea/dataSources.local.xml	(date 1638889782213)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="dataSourceStorageLocal" created-in="IU-211.7142.45">
++  <component name="dataSourceStorageLocal">
+     <data-source name="gym@localhost" uuid="ee2474b2-5bb3-4860-abfd-2fe482e7218c">
+       <database-info product="MySQL" version="8.0.18" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.18" exact-driver-version="8.0">
+         <extra-name-characters>#@</extra-name-characters>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"BranchesTreeState\">\r\n    <expand>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </expand>\r\n    <select />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"92481cda-80a9-47ca-8e9a-f0b19f680722\" name=\"Default Changelist\" comment=\"\">\r\n<<<<<<< HEAD\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/views/main.ftl\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/views/main.ftl\" afterDir=\"false\" />\r\n=======\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_12_7_12_33__Default_Changelist_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_12_7_12_33__Default_Changelist_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java\" afterDir=\"false\" />\r\n>>>>>>> b42fb6c9852ac3c4371db22b0cee0aad1e2244aa\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"localRepository\" value=\"E:\\apache-maven-3.6.3\\repository\" />\r\n        <option name=\"mavenHome\" value=\"C:\\Users\\wcy\\.m2\\wrapper\\dists\\apache-maven-3.8.3-bin\\5a6n1u8or3307vo2u2jgmkhm0t\\apache-maven-3.8.3\" />\r\n        <option name=\"userSettingsFile\" value=\"E:\\apache-maven-3.6.3\\apache-maven-3.6.3\\conf\\settings.xml\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"21ugz74qBClPeGGMFPG6xL1cWKs\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"DatabaseDriversLRU\" value=\"mysql\" />\r\n    <property name=\"RequestMappingsPanelOrder0\" value=\"0\" />\r\n    <property name=\"RequestMappingsPanelOrder1\" value=\"1\" />\r\n    <property name=\"RequestMappingsPanelWidth0\" value=\"75\" />\r\n    <property name=\"RequestMappingsPanelWidth1\" value=\"75\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/../../mybatis-dtd/mybatis-generator-config_1_0.dtd\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"preferences.pluginManager\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\pojo\\gymsystem\\src\\main\\resources\" />\r\n      <recent name=\"E:\\code\\gymsystem\\src\\main\\java\\com\\yjxxt\\gymsystem\" />\r\n      <recent name=\"E:\\code\\gymsystem\\src\\main\\resources\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"com.yjxxt.gymsystem\" />\r\n      <recent name=\"com.yjxxt.gymsystem.interceptors\" />\r\n      <recent name=\"com.yjxxt.gymsystem.config\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"GymsystemApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"gymsystem\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"com.yjxxt.gymsystem.GymsystemApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"92481cda-80a9-47ca-8e9a-f0b19f680722\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1638796648706</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1638796648706</updated>\r\n      <workItem from=\"1638796650652\" duration=\"339000\" />\r\n      <workItem from=\"1638836102279\" duration=\"799000\" />\r\n      <workItem from=\"1638843315577\" duration=\"3460000\" />\r\n      <workItem from=\"1638859857049\" duration=\"1395000\" />\r\n      <workItem from=\"1638863637991\" duration=\"104000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"前端\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"前端\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision 70756e08a8c2c41ba13e2a06b43c26dbd799b30a)
++++ .idea/workspace.xml	(date 1638947034722)
+@@ -22,13 +22,23 @@
+     <select />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="92481cda-80a9-47ca-8e9a-f0b19f680722" name="Default Changelist" comment="">
+-<<<<<<< HEAD
++    <list default="true" id="92481cda-80a9-47ca-8e9a-f0b19f680722" name="Default Changelist" comment="测试二">
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/query/MemberQuery.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/service/MemberService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/public/js/member/add.update.js" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/public/js/membertype/add.update.js" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/public/js/membertype/membertype.js" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/views/member/add_update.ftl" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/views/member/member.ftl" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/views/membertype/add_update.ftl" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/views/membertype/membertype.ftl" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/resources/views/main.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/main.ftl" afterDir="false" />
+-=======
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_12_7_12_33__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_12_7_12_33__Default_Changelist_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yjxxt/gymsystem/controller/IndexController.java" afterDir="false" />
+->>>>>>> b42fb6c9852ac3c4371db22b0cee0aad1e2244aa
++      <change beforePath="$PROJECT_DIR$/target/classes/public/images/background.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/public/images/background.jpg" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/views/main.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/main.ftl" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -39,11 +49,13 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="Class" />
++        <option value="JavaScript File" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+   <component name="MavenImportPreferences">
+     <option name="generalSettings">
+@@ -51,6 +63,7 @@
+         <option name="localRepository" value="E:\apache-maven-3.6.3\repository" />
+         <option name="mavenHome" value="C:\Users\wcy\.m2\wrapper\dists\apache-maven-3.8.3-bin\5a6n1u8or3307vo2u2jgmkhm0t\apache-maven-3.8.3" />
+         <option name="userSettingsFile" value="E:\apache-maven-3.6.3\apache-maven-3.6.3\conf\settings.xml" />
++        <option name="workOffline" value="true" />
+       </MavenGeneralSettings>
+     </option>
+   </component>
+@@ -70,23 +83,29 @@
+     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="aspect.path.notification.shown" value="true" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../mybatis-dtd/mybatis-generator-config_1_0.dtd" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gym/gym" />
+     <property name="node.js.detected.package.eslint" value="true" />
+     <property name="node.js.detected.package.tslint" value="true" />
++    <property name="node.js.path.for.package.eslint" value="project" />
++    <property name="node.js.path.for.package.tslint" value="project" />
+     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
++    <property name="settings.editor.selected.configurable" value="preferences.externalResources" />
+   </component>
+   <component name="RecentsManager">
++    <key name="CopyClassDialog.RECENTS_KEY">
++      <recent name="com.yjxxt.gymsystem.controller" />
++      <recent name="com.yjxxt.gymsystem.query" />
++      <recent name="com.yjxxt.gymsystem.service" />
++      <recent name="com.yjxxt.gymsystem" />
++      <recent name="com.yjxxt.gymsystem.interceptors" />
++    </key>
+     <key name="CopyFile.RECENT_KEYS">
++      <recent name="E:\自己\SpringBoot\gymsystem\src\main\resources\views" />
++      <recent name="E:\自己\SpringBoot\gymsystem\src\main\resources\public\js" />
+       <recent name="E:\pojo\gymsystem\src\main\resources" />
+       <recent name="E:\code\gymsystem\src\main\java\com\yjxxt\gymsystem" />
+       <recent name="E:\code\gymsystem\src\main\resources" />
+-    </key>
+-    <key name="CopyClassDialog.RECENTS_KEY">
+-      <recent name="com.yjxxt.gymsystem" />
+-      <recent name="com.yjxxt.gymsystem.interceptors" />
+-      <recent name="com.yjxxt.gymsystem.config" />
+     </key>
+   </component>
+   <component name="RunManager">
+@@ -110,8 +129,19 @@
+       <workItem from="1638836102279" duration="799000" />
+       <workItem from="1638843315577" duration="3460000" />
+       <workItem from="1638859857049" duration="1395000" />
+-      <workItem from="1638863637991" duration="104000" />
++      <workItem from="1638889601023" duration="179000" />
++      <workItem from="1638922378546" duration="3683000" />
++      <workItem from="1638926958431" duration="12575000" />
++      <workItem from="1638946682287" duration="350000" />
+     </task>
++    <task id="LOCAL-00001" summary="测试二">
++      <created>1638876423765</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1638876423765</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -131,7 +161,78 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="前端" />
+-    <option name="LAST_COMMIT_MESSAGE" value="前端" />
++    <MESSAGE value="测试二" />
++    <option name="LAST_COMMIT_MESSAGE" value="测试二" />
++  </component>
++  <component name="WindowStateProjectService">
++    <state x="765" y="223" key="#com.intellij.ide.util.MemberChooser" timestamp="1638923102909">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state x="765" y="223" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1638923102909" />
++    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1638927542443">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1638927542443" />
++    <state x="92" y="92" width="1736" height="896" key="DiffContextDialog" timestamp="1638872298418">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state x="92" y="92" width="1736" height="896" key="DiffContextDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1638872298418" />
++    <state x="863" y="294" key="FileChooserDialogImpl" timestamp="1638925384710">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state x="863" y="294" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1638925384710" />
++    <state width="1877" height="2" key="GridCell.Tab.0.bottom" timestamp="1638946977420">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state width="1877" height="2" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1638946977420" />
++    <state width="1877" height="2" key="GridCell.Tab.0.center" timestamp="1638946977420">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state width="1877" height="2" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1638946977420" />
++    <state width="1877" height="2" key="GridCell.Tab.0.left" timestamp="1638946977420">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state width="1877" height="2" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1638946977420" />
++    <state width="1877" height="2" key="GridCell.Tab.0.right" timestamp="1638946977420">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state width="1877" height="2" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1638946977420" />
++    <state width="1877" height="2" key="GridCell.Tab.1.bottom" timestamp="1638946977421">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state width="1877" height="2" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1638946977421" />
++    <state width="1877" height="2" key="GridCell.Tab.1.center" timestamp="1638946977421">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state width="1877" height="2" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1638946977421" />
++    <state width="1877" height="2" key="GridCell.Tab.1.left" timestamp="1638946977420">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state width="1877" height="2" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1638946977420" />
++    <state width="1877" height="2" key="GridCell.Tab.1.right" timestamp="1638946977421">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state width="1877" height="2" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1638946977421" />
++    <state x="436" y="227" width="1244" height="712" key="SettingsEditor" timestamp="1638878905591">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state x="436" y="227" width="1244" height="712" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1638878905591" />
++    <state x="552" y="272" key="Vcs.Push.Dialog.v2" timestamp="1638876436670">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state x="552" y="272" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1638876436670" />
++    <state x="392" y="231" key="com.intellij.javaee.MapExternalResourceDialog" timestamp="1638878902906">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state x="392" y="231" key="com.intellij.javaee.MapExternalResourceDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1638878902906" />
++    <state x="764" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1638923114446">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state x="764" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1638923114446" />
++    <state x="604" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1638929133488">
++      <screen x="0" y="0" width="1920" height="1080" />
++    </state>
++    <state x="604" y="239" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1638929133488" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
+Index: target/classes/views/main.ftl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta charset=\"utf-8\">\r\n    <title>健身房管理系统</title>\r\n    <#include \"common.ftl\">\r\n</head>\r\n<body class=\"layui-layout-body layuimini-all\">\r\n<div class=\"layui-layout layui-layout-admin\">\r\n    <div class=\"layui-header header\">\r\n        <div class=\"layui-logo\">\r\n            <a href=\"\">\r\n                <img src=\"images/2.jpg\" alt=\"logo\">\r\n                <h1>健身房管理</h1>\r\n            </a>\r\n        </div>\r\n        <a>\r\n            <div class=\"layuimini-tool\"><i title=\"展开\" class=\"fa fa-outdent\" data-side-fold=\"1\"></i></div>\r\n        </a>\r\n        <div id=\"space\">\r\n            <a href=\"#\">\r\n                <marquee id=\"right\" crollamount=\"5\">特别公告:本系统为测试版，有问题请联系我们工作人员，电话:147147141748</marquee>\r\n            </a>\r\n        </div>\r\n        <ul class=\"layui-nav layui-layout-right\">\r\n            <li class=\"layui-nav-item mobile layui-hide-xs\" lay-unselect>\r\n                <a href=\"javascript:;\" data-check-screen=\"full\"><i class=\"fa fa-arrows-alt\"></i></a>\r\n            </li>\r\n            <li class=\"layui-nav-item layuimini-setting\">\r\n                <a href=\"javascript:;\">${(user.userName) !\"\"}</a>\r\n                <dl class=\"layui-nav-child\">\r\n                    <dd>\r\n                        <a href=\"javascript:;\" data-iframe-tab=\"${ctx}/user/toSettingPage\" data-title=\"基本资料\" data-icon=\"fa fa-gears\">基本资料</a>\r\n                    </dd>\r\n                    <dd>\r\n                        <a href=\"javascript:;\" data-iframe-tab=\"${ctx}/user/toPasswordPage\" data-title=\"修改密码\" data-icon=\"fa fa-gears\">修改密码</a>\r\n                    </dd>\r\n                    <dd>\r\n                        <a href=\"javascript:;\" class=\"login-out\">退出登录</a>\r\n                    </dd>\r\n                </dl>\r\n            </li>\r\n            <li class=\"layui-nav-item layuimini-select-bgcolor mobile layui-hide-xs\" lay-unselect>\r\n                <a href=\"javascript:;\"></a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"layui-side layui-bg-black\">\r\n        <div class=\"layui-side-scroll layui-left-menu\">\r\n                <ul class=\"layui-nav layui-nav-tree layui-left-nav-tree layui-this\" id=\"currency\">\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\"><i class=\"fa fa-street-view\"></i><span class=\"layui-left-nav\"> 会员管理</span> <span class=\"layui-nav-more\"></span></a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                    <dd>\r\n                                      <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-1\" data-tab=\"sale_chance/index\" target=\"_self\"><i class=\"fa fa-tty\"></i><span class=\"layui-left-nav\"> 会员列表</span></a>\r\n                                     </dd>\r\n                                    <dd>\r\n                                        <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-2\" data-tab=\"cus_dev_plan/index\" target=\"_self\"><i class=\"fa fa-ellipsis-h\"></i><span class=\"layui-left-nav\"> 会员到期</span></a>\r\n                                    </dd>\r\n                                    <dd>\r\n                                        <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                            <i class=\"fa fa-flag\">\r\n                                            </i><span class=\"layui-left-nav\"> 会员充值管理</span>\r\n                                            <span class=\"layui-nav-more\"></span>\r\n                                        </a>\r\n                                        <dl class=\"layui-nav-child\">\r\n                                            <dd>\r\n                                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-3\" data-tab=\"customer/index\" target=\"_self\"><i class=\"fa fa-exchange\"></i><span class=\"layui-left-nav\"> 会员卡续卡</span></a>\r\n                                            </dd>\r\n                                            <dd>\r\n                                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-4\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 会员卡余额充值</span></a>\r\n                                            </dd>\r\n                                            <dd>\r\n                                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-5\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 续费续卡记录</span></a>\r\n                                            </dd>\r\n                                            <dd>\r\n                                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-6\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 会员卡类型充值</span></a>\r\n                                            </dd>\r\n                                        </dl>\r\n                                    </dd>\r\n                            </dl>\r\n                        </li>\r\n                    <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-flag\">\r\n                                </i><span class=\"layui-left-nav\"> 教练管理</span>\r\n                                    <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                        <dl class=\"layui-nav-child\">\r\n                            <dd>\r\n                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-7\" data-tab=\"customer/index\" target=\"_self\"><i class=\"fa fa-exchange\"></i><span class=\"layui-left-nav\"> 教练列表</span></a>\r\n                            </dd>\r\n                            <dd>\r\n                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-8\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 会员私教课程列表</span></a>\r\n                            </dd>\r\n                            <dd>\r\n                                <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-9\" data-tab=\"customer_loss/index\" target=\"_self\"><i class=\"fa fa-user-times\"></i><span class=\"layui-left-nav\"> 会员私教详情</span></a>\r\n                            </dd>\r\n                        </dl>\r\n                    </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\"><i class=\"fa fa-desktop\"></i><span class=\"layui-left-nav\"> 课程管理</span> <span class=\"layui-nav-more\"></span></a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                    <dd>\r\n                                        <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-10\" data-tab=\"customer_serve/index/1\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 课程列表</span></a>\r\n                                    </dd>\r\n                            </dl>\r\n                        </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-home\"></i>\r\n                                <span class=\"layui-left-nav\"> 器材管理</span>\r\n                                <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-10\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 器材信息</span></a>\r\n                                </dd>\r\n                            </dl>\r\n                        </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-home\"></i>\r\n                                <span class=\"layui-left-nav\"> 物品遗失</span>\r\n                                <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-11\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 物品归还</span></a>\r\n                                </dd>\r\n                            </dl>\r\n                        </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-home\"></i>\r\n                                <span class=\"layui-left-nav\"> 商品管理</span>\r\n                                <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-12\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 商品列表</span></a>\r\n                                </dd>\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-13\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 商品售卖信息</span></a>\r\n                                </dd>\r\n                            </dl>\r\n                        </li>\r\n                        <li class=\"layui-nav-item\">\r\n                            <a href=\"javascript:;\" class=\"layui-menu-tips\">\r\n                                <i class=\"fa fa-home\"></i>\r\n                                <span class=\"layui-left-nav\"> 统计信息</span>\r\n                                <span class=\"layui-nav-more\"></span>\r\n                            </a>\r\n                            <dl class=\"layui-nav-child\">\r\n                                <dd>\r\n                                    <a href=\"javascript:;\" class=\"layui-menu-tips\" data-type=\"tabAdd\" data-tab-mpi=\"m-p-i-14\" data-tab=\"report/0\" target=\"_self\"><i class=\"fa fa-tachometer\"></i><span class=\"layui-left-nav\"> 收入统计</span></a>\r\n                                </dd>\r\n                            </dl>\r\n                        </li>\r\n                    <span class=\"layui-nav-bar\" style=\"top: 201px; height: 0px; opacity: 0;\"></span>\r\n                </ul>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"layui-body\">\r\n        <div class=\"layui-tab\" lay-filter=\"layuiminiTab\" id=\"top_tabs_box\">\r\n            <ul class=\"layui-tab-title\" id=\"top_tabs\">\r\n                <li class=\"layui-this\" id=\"layuiminiHomeTabId\" lay-id=\"welcome\"><i class=\"fa fa-home\"></i> <span>首页</span></li>\r\n            </ul>\r\n\r\n            <ul class=\"layui-nav closeBox\">\r\n                <li class=\"layui-nav-item\">\r\n                    <a href=\"javascript:;\"> <i class=\"fa fa-dot-circle-o\"></i> 页面操作</a>\r\n                    <dl class=\"layui-nav-child\">\r\n                        <dd><a href=\"javascript:;\" data-page-close=\"other\"><i class=\"fa fa-window-close\"></i> 关闭其他</a></dd>\r\n                        <dd><a href=\"javascript:;\" data-page-close=\"all\"><i class=\"fa fa-window-close-o\"></i> 关闭全部</a></dd>\r\n                    </dl>\r\n                </li>\r\n            </ul>\r\n            <div class=\"layui-tab-content clildFrame\">\r\n                <div id=\"layuiminiHomeTabIframe\" class=\"layui-tab-item layui-show\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n<script type=\"text/javascript\" src=\"${ctx}/js/main.js\"></script>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- target/classes/views/main.ftl	(revision 70756e08a8c2c41ba13e2a06b43c26dbd799b30a)
++++ target/classes/views/main.ftl	(date 1638881218690)
+@@ -53,10 +53,10 @@
+                             <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-street-view"></i><span class="layui-left-nav"> 会员管理</span> <span class="layui-nav-more"></span></a>
+                             <dl class="layui-nav-child">
+                                     <dd>
+-                                      <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-1" data-tab="sale_chance/index" target="_self"><i class="fa fa-tty"></i><span class="layui-left-nav"> 会员列表</span></a>
++                                      <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-1" data-tab="member/index" target="_self"><i class="fa fa-tty"></i><span class="layui-left-nav"> 会员列表</span></a>
+                                      </dd>
+                                     <dd>
+-                                        <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-2" data-tab="cus_dev_plan/index" target="_self"><i class="fa fa-ellipsis-h"></i><span class="layui-left-nav"> 会员到期</span></a>
++                                        <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-2" data-tab="member/outdate" target="_self"><i class="fa fa-ellipsis-h"></i><span class="layui-left-nav"> 会员到期</span></a>
+                                     </dd>
+                                     <dd>
+                                         <a href="javascript:;" class="layui-menu-tips">
+@@ -66,7 +66,7 @@
+                                         </a>
+                                         <dl class="layui-nav-child">
+                                             <dd>
+-                                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-3" data-tab="customer/index" target="_self"><i class="fa fa-exchange"></i><span class="layui-left-nav"> 会员卡续卡</span></a>
++                                                <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-3" data-tab="member/index" target="_self"><i class="fa fa-exchange"></i><span class="layui-left-nav"> 会员卡续卡</span></a>
+                                             </dd>
+                                             <dd>
+                                                 <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-4" data-tab="customer_loss/index" target="_self"><i class="fa fa-user-times"></i><span class="layui-left-nav"> 会员卡余额充值</span></a>
+Index: src/main/resources/public/js/membertype/add.update.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/public/js/membertype/add.update.js	(date 1632403101995)
++++ src/main/resources/public/js/membertype/add.update.js	(date 1632403101995)
+@@ -0,0 +1,45 @@
++layui.use(['form', 'layer'], function () {
++    var form = layui.form,
++        layer = parent.layer === undefined ? layui.layer : top.layer,
++        $ = layui.jquery;
++
++    $("#quxiao").click(function (){
++        var index = parent.layer.getFrameIndex(window.name);
++        window.parent.layer.close(index);
++    })
++
++    form.on('submit(addOrUpdateMemberType)', function (data) {
++
++        var index = layer.msg("数据正在提交中，请稍等！", {icon: 16, time: false, shade: 0.8});
++
++        var filedData = data.field;
++
++        var url = ctx + "/membertype/save"
++        //判断是添加还是修改
++        if ($("input[name=typeId]").val()) {
++            url = ctx + "/membertype/update"
++        }
++
++        $.ajax({
++            type: 'post',
++            url: url,
++            data: filedData,
++            dateType: "json",
++            success: function (data) {
++                if (data.code == 200) {
++                    layer.msg("操作成功了！", {icon: 5});
++                    //关闭加载层
++                    layer.close(index);
++                    //关闭弹出层
++                    layer.closeAll("iframe");
++                    window.parent.location.reload();
++                } else {
++                    layer.msg(data.msg);
++                }
++            }
++        })
++        //取消跳转
++        return false;
++    })
++
++});
+\ No newline at end of file

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>用户管理</title>
+    <title>课程管理</title>
     <#include "../common.ftl">
 </head>
 <body class="childrenBody">
@@ -10,10 +10,10 @@
         <form class="layui-form">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="userName" class="layui-input searchVal" placeholder="用户名" />
+                    <input type="text" name="courseName" class="layui-input searchVal" placeholder="课程名" />
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="phone" class="layui-input searchVal" placeholder="手机号" />
+                    <input type="text" name="coachName" class="layui-input searchVal" placeholder="教练名" />
                 </div>
                 <a class="layui-btn search_btn" data-type="reload">
                     <i class="layui-icon">&#xe615;</i>搜索
@@ -21,24 +21,24 @@
             </div>
         </form>
     </blockquote>
-    <table id="userList" class="layui-table" lay-filter="users">
+    <table id="courseList" class="layui-table" lay-filter="course">
     </table>
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
             <a class="layui-btn layui-btn-normal addNews_btn" lay-event="add">
-                <i class="layui-icon">&#xe608;</i>添加用户
+                <i class="layui-icon">&#xe608;</i>添加课程
             </a>
             <a class="layui-btn layui-btn-normal delNews_btn" lay-event="del">
-                <i class="layui-icon">&#xe608;</i>删除用户
+                <i class="layui-icon">&#xe608;</i>删除课程
             </a>
         </div>
     </script>
     <!--操作-->
-    <script id="userListBar" type="text/html">
+    <script id="courseListBar" type="text/html">
         <a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
     </script>
 </form>
-<script type="text/javascript" src="${ctx}/js/user/user.js"></script>
+<script type="text/javascript" src="${ctx}/js/course/course.js"></script>
 </body>
 </html>
