@@ -13,13 +13,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class CoachService extends BaseService<Coach,Integer> {
 
-    @Autowired
+    @Resource
     private CoachMapper coachMapper;
 
     /**

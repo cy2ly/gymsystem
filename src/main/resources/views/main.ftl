@@ -95,7 +95,6 @@
                             <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-desktop"></i><span class="layui-left-nav"> 课程管理</span> <span class="layui-nav-more"></span></a>
                             <dl class="layui-nav-child">
                                     <dd>
-                                        <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="customer_serve/index/1" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 课程列表</span></a>
                                         <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="course/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 课程列表</span></a>
                                     </dd>
                             </dl>
@@ -108,7 +107,6 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd>
-                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="report/0" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 器材信息</span></a>
                                     <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-10" data-tab="equipment/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 器材信息</span></a>
                                 </dd>
                             </dl>
@@ -121,7 +119,7 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd>
-                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11" data-tab="report/0" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 物品归还</span></a>
+                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11" data-tab="lose/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 物品信息</span></a>
                                 </dd>
                             </dl>
                         </li>
@@ -133,10 +131,10 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd>
-                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-12" data-tab="report/0" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 商品列表</span></a>
+                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-12" data-tab="merchandise/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 商品列表</span></a>
                                 </dd>
                                 <dd>
-                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="report/0" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 商品售卖信息</span></a>
+                                    <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="lose/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 商品售卖信息</span></a>
                                 </dd>
                             </dl>
                         </li>
